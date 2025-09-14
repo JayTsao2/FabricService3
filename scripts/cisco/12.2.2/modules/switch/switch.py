@@ -379,10 +379,12 @@ class SwitchManager:
         if not serial_number:
             print(f"[Switch] Error: Serial Number not found in {switch_name} configuration")
             return False
-        
+
+        # TODO: generate error report
+        retry_times = 10
         success = False
         check_interval = 10
-        while not success:
+        for i in range(retry_times):
             print(f"[Switch] {self.GREEN}{self.BOLD}Rediscovering switch {switch_name} with serial {serial_number}{self.END}")
             switch_data = switch_api.get_switches(fabric_name)
             for switch in switch_data:
