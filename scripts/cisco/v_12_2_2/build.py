@@ -69,7 +69,7 @@ class FabricBuilder:
         Returns a list of fabric names.
         """
         fabric_list = []
-        fabric_dir = os.path.join(self.get_root_dir(), 'network_configs', '1_vxlan_evpn', 'fabric')
+        fabric_dir = os.path.join(self.get_root_dir(), 'network_configs', 'vxlan_evpn', 'fabric')
         if os.path.exists(fabric_dir):
             for fabric_file in os.listdir(fabric_dir):
                 if fabric_file.endswith('.yaml'):
@@ -81,7 +81,7 @@ class FabricBuilder:
         Get the list of MSDs from the configuration.
         """
         msds = []
-        msd_dir = os.path.join(self.get_root_dir(), 'network_configs', '1_vxlan_evpn', 'multisite_deployment')
+        msd_dir = os.path.join(self.get_root_dir(), 'network_configs', 'vxlan_evpn', 'multisite_deployment')
         if os.path.exists(msd_dir):
             for msd_file in os.listdir(msd_dir):
                 if msd_file.endswith('.yaml'):
@@ -93,7 +93,7 @@ class FabricBuilder:
         Get the list of ISNs from the configuration.
         """
         isn_list = []
-        isn_dir = os.path.join(self.get_root_dir(), 'network_configs', '1_vxlan_evpn', 'inter-site_network')
+        isn_dir = os.path.join(self.get_root_dir(), 'network_configs', 'vxlan_evpn', 'inter-site_network')
         if os.path.exists(isn_dir):
             for isn_file in os.listdir(isn_dir):
                 if isn_file.endswith('.yaml'):
@@ -106,7 +106,7 @@ class FabricBuilder:
         Returns a nested dictionary with fabric -> role -> [nodes] structure.
         """
         switches = {}
-        switch_dir = os.path.join(self.get_root_dir(), 'network_configs', '3_node')
+        switch_dir = os.path.join(self.get_root_dir(), 'network_configs', 'node')
         
         if os.path.exists(switch_dir):
             # Iterate through fabrics

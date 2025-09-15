@@ -109,7 +109,7 @@ VRF:
 
 ### 交換器介面配置中的 VRF 設定
 ```yaml
-# In switch YAML file: network_configs/3_node/Site1/leaf/Site1-L1.yaml
+# In switch YAML file: network_configs/node/Site1/leaf/Site1-L1.yaml
 Interface:
   - Ethernet1/1:
       policy: "int_routed_host"

@@ -121,7 +121,7 @@ InterfaceManager 支援多種介面範圍表示法：
 
 ### 完整交換器介面配置
 ```yaml
-# In switch YAML file: network_configs/3_node/Site1/leaf/Site1-L1.yaml
+# In switch YAML file: network_configs/node/Site1/leaf/Site1-L1.yaml
 Interface:
   Access:
     - Interface: "Ethernet1/1"

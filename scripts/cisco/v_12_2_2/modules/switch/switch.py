@@ -304,7 +304,7 @@ class SwitchManager:
         cli_commands = read_freeform_config(str(config_file_path))
 
         if "$BGP_ASN" in cli_commands:
-            fabric_dir = self.config_base_path / ".." / "1_vxlan_evpn" / "fabric"
+            fabric_dir = self.config_base_path / ".." / "vxlan_evpn" / "fabric"
             fabric_config_path = fabric_dir / f"{fabric_name}.yaml"
             fabric_config = load_yaml_file(str(fabric_config_path))
             general = fabric_config.get("General Parameter")

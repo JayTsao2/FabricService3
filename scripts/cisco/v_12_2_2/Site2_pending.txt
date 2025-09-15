@@ -1,0 +1,32 @@
+- Site2-BGW1
+interface ethernet1/34
+  no switchport
+  vrf member z01
+  no shutdown
+  mtu 9100
+  ip address 10.255.255.1/31
+    bfd interval 300 min_rx 300 multiplier 3
+  ipv6 address fd00:101:c00:0:10:50:32:111/127
+  ipv6 nd suppress-ra
+configure terminal
+===
+- Site2-BGW2
+interface ethernet1/34
+  no switchport
+  mtu 9100
+  vrf member z01
+  no shutdown
+  ip address 10.255.255.5/31
+    bfd interval 300 min_rx 300 multiplier 3
+  ipv6 address fd00:101:c00:0:10:50:32:111/127
+  ipv6 nd suppress-ra
+configure terminal
+===
+- Site2-L1
+===
+- Site2-L2
+===
+- Site2-S1
+===
+- Site2-S2
+===

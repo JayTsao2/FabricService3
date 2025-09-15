@@ -6,7 +6,7 @@ Fabric:
   Overlay routing protocol: OVERLAY_ROUTING_PROTOCOL # Corp_Defaults
   BGP ASN: BGP_AS # Corp_Defaults
   License Tier: LICENSE_TIER # Corp_Defaults
-  Telemetry Features: false # Default value, not from 12.1.2e mapping
+  Telemetry Features: false # Default value, not from v_12_1_2e mapping
   Telemetry collection: # unused
   Telemetry streaming via: # unused
   Telemetry source interface: # unused
@@ -54,7 +54,7 @@ vPC:
   vPC advertise-pip on Border only: VPC_ADVERTISE_PIP_BORDER_ONLY # Corp_Defaults
   Enable the same vPC Domain Id for all vPC Pairs: ENABLE_SAME_VPC_DOMAIN_ID_ALL_PAIRS # Corp_Defaults
   vPC Domain Id: VPC_DOMAIN_ID # unused
-  vPC Domain Id Range: VPC_DOMAIN_ID_RANGE # unused (Note: 12.1.2e had this as Corp_Defaults, 12.3 has it as unused. Using 12.3's comment preference)
+  vPC Domain Id Range: VPC_DOMAIN_ID_RANGE # unused (Note: v_12_1_2e had this as Corp_Defaults, v_12_3 has it as unused. Using v_12_3's comment preference)
   vPC Layer-3 Peer-Router Option: VPC_L3_PEER_ROUTER_OPTION # Corp_Defaults
   Enable Qos for Fabric vPC-Peering: ENABLE_QOS_FABRIC_VPC_PEERING # Corp_Defaults
   Qos Policy Name: QOS_POLICY_NAME # unused
@@ -233,7 +233,7 @@ Manageability:
     Freeform: BANNER_FREEFORM_CONFIG # Corp_Defaults
   
 Bootstrap:
-  Enable Bootstrap: ENABLE_BOOTSTRAP # False (from 12.3 template, 12.1.2e was Corp_Defaults)
+  Enable Bootstrap: ENABLE_BOOTSTRAP # False (from v_12_3 template, v_12_1_2e was Corp_Defaults)
   Enable Local DHCP Server: ENABLE_LOCAL_DHCP_SERVER # unused
   DHCP Version: DHCP_VERSION # unused
   DHCP Scope Start Address: DHCP_SCOPE_START_ADDR # unused

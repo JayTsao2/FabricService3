@@ -30,15 +30,15 @@ class ProjectPaths:
         self.policy_dir = self.resources_dir / "policy"
         
         # Network config subdirectories
-        self.fabric_configs_dir = self.network_configs_dir / "1_vxlan_evpn" / "fabric"
-        self.inter_site_dir = self.network_configs_dir / "1_vxlan_evpn" / "inter-site_network"
-        self.multisite_dir = self.network_configs_dir / "1_vxlan_evpn" / "multisite_deployment"
+        self.fabric_configs_dir = self.network_configs_dir / "vxlan_evpn" / "fabric"
+        self.inter_site_dir = self.network_configs_dir / "vxlan_evpn" / "inter-site_network"
+        self.multisite_dir = self.network_configs_dir / "vxlan_evpn" / "multisite_deployment"
         
-        self.switch_configs_dir = self.network_configs_dir / "3_node"
+        self.switch_configs_dir = self.network_configs_dir / "node"
         
-        self.network_configs_base_dir = self.network_configs_dir / "5_segment"
+        self.network_configs_base_dir = self.network_configs_dir / "segment"
         self.interface_configs_dir = self.network_configs_dir / "5_interface"
-        self.vrf_configs_dir = self.network_configs_dir / "5_segment"
+        self.vrf_configs_dir = self.network_configs_dir / "segment"
         
         # API modules directory
         self.api_dir = self.scripts_dir / "api"

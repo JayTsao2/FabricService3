@@ -88,7 +88,7 @@ VPC 配置檔案遵循特定的命名格式：
 
 ### VPC 配對配置檔案
 ```yaml
-# File: network_configs/3_node/Site1/vpc/Site1-L1=Site1-L2=vPC6.yaml
+# File: network_configs/node/Site1/vpc/Site1-L1=Site1-L2=vPC6.yaml
 Peer-1 Serial Number: "9A1B2C3D4E5"
 Peer-2 Serial Number: "9F6G7H8I9J0"
 
@@ -108,7 +108,7 @@ Policy:
 
 ### Access VPC 配置
 ```yaml
-# File: network_configs/3_node/Site1/vpc/Site1-L1=Site1-L2=vPC7.yaml
+# File: network_configs/node/Site1/vpc/Site1-L1=Site1-L2=vPC7.yaml
 Peer-1 Serial Number: "9A1B2C3D4E5"
 Peer-2 Serial Number: "9F6G7H8I9J0"
 

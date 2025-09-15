@@ -23,7 +23,7 @@ class InterfaceManager:
         """Initialize with centralized configuration paths."""
         current_file = Path(__file__).resolve()
         self.root_path = current_file.parents[5]
-        self.switch_base_path = self.root_path / "network_configs" / "3_node"
+        self.switch_base_path = self.root_path / "network_configs" / "node"
         self.GREEN = "\033[92m"
         self.YELLOW = "\033[93m"
         self.RED = "\033[91m"
