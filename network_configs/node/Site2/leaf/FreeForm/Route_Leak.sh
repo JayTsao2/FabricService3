@@ -54,5 +54,3 @@ router bgp $BGP_ASN
       as-override
       disable-peer-as-check
       soft-reconfiguration inbound always
-
-

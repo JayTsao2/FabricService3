@@ -48,8 +48,8 @@ class InterfaceManager:
             return True
 
         for interface_dict in switch_config["Interface"]:
-            interface_name = next(iter(interface_dict.keys()))
-            interface_config = interface_dict[interface_name]
+            interface_name = interface_dict["Name"]
+            interface_config = interface_dict
 
             admin_status_config = interface_config.get("Enable Interface")
             if admin_status_config is None:

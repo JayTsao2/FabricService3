@@ -102,7 +102,7 @@ router ospf 100
 
 line console
   exec-timeout 60
-  
+
 logging logfile messages 6 size 81920
 logging source-interface mgmt0
 logging origin-id hostname

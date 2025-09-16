@@ -16,14 +16,13 @@ Manageability:
   NTP Server IPs: 10.11.82.31,10.11.83.31
   Syslog Server IPs: 10.228.90.42,10.228.90.43, 10.11.116.100, 10.11.117.100
 
-  AAA Freeform Config: 
+  AAA Freeform Config:
     Freeform: Site2_FreeForm\AAA Freeform Config.sh
 
 Advanced:
   Leaf Freeform Config: # Additional CLIs, added before interface configurations, for all Leafs as captured from Show Running Configuration
     Freeform: Site2_FreeForm\Leaf Freeform Config.sh
-  Spine Freeform Config: 
+  Spine Freeform Config:
     Freeform: Site2_FreeForm\Spine Freeform Config.sh
-  Intra-fabric Links Additional Config: 
+  Intra-fabric Links Additional Config:
     Freeform: Site2_FreeForm\Intra-fabric Links Additional Config.sh
-

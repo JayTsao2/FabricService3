@@ -1,5 +1,5 @@
 ---
-Change Mode: Normal # Normal <> maintenance 
+Change Mode: Normal # Normal <> maintenance
 Hostname: Site2-S1
 IP Address: 10.192.195.84
 IP Netmask Length: 24 # For management interface

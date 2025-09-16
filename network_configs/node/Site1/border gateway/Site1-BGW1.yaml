@@ -1,5 +1,5 @@
 ---
-Change Mode: Normal # Normal <> maintenance 
+Change Mode: Normal # Normal <> maintenance
 Hostname: Site1-BGW1
 IP Address: 10.192.195.77
 IP Netmask Length: 24 # For management interface
@@ -12,37 +12,27 @@ Switch Freeform Config: FreeForm\Site1-BGW1.sh
 
 Interface:
 
-  - Ethernet1/1:
-      Interface Description: Site1-S1
-      Enable Interface: True
+-  Name:  Ethernet1/1
+   Interface Description: Site1-S1
+   Enable Interface: true
 
-  - Ethernet1/2:
-      Interface Description: Site1-S2
-      Enable Interface: True
+-  Name:  Ethernet1/2
+   Interface Description: Site1-S2
+   Enable Interface: true
 
-  - Ethernet1/3:
-      Interface Description: Site1-S3
-      Enable Interface: True
+-  Name:  Ethernet1/3
+   Interface Description: Site1-S3
+   Enable Interface: true
 
-  - Ethernet1/4:
-      Interface Description: Site1-DCI-1
-      Enable Interface: True
+-  Name:  Ethernet1/4
+   Interface Description: Site1-DCI-1
+   Enable Interface: true
 
-  - Ethernet1/5:
-      Interface Description: Site1-DCI-2
-      Enable Interface: True
+-  Name:  Ethernet1/5
+   Interface Description: Site1-DCI-2
+   Enable Interface: true
 
-  - Ethernet1/6:
-      Interface Description: Site2-DCI-1
-      Enable Interface: True
+-  Name:  Ethernet1/6
+   Interface Description: Site2-DCI-1
+   Enable Interface: true
 
-  - Ethernet1/34:
-      policy: int_routed_host
-      Interface VRF: Z01
-      Interface IP: 
-      IP Netmask Length: 
-      Interface Description: 
-      MTU: 9100
-      SPEED: Auto
-      Enable Interface: True
-      Freeform Config: FreeForm\Site1-BGW1_Eth_1_34.sh

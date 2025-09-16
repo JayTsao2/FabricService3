@@ -1,5 +1,5 @@
 ---
-Change Mode: Normal # Normal <> maintenance 
+Change Mode: Normal # Normal <> maintenance
 Hostname: Site2-L2
 IP Address: 10.192.195.82
 IP Netmask Length: 24 # For management interface
@@ -12,22 +12,22 @@ Switch Freeform Config: FreeForm\Route_Leak.sh, FreeForm\VPC11.sh
 
 Interface:
 
-  - Ethernet1/1:
-      Interface Description: Site2-S1
-      Enable Interface: True
+-  Name:  Ethernet1/1
+   Interface Description: Site2-S1
+   Enable Interface: true
 
-  - Ethernet1/2:
-      Interface Description: Site2-S2
-      Enable Interface: True
+-  Name:  Ethernet1/2
+   Interface Description: Site2-S2
+   Enable Interface: true
 
-  - Ethernet1/3:
-      Interface Description: Site2-S3
-      Enable Interface: True
+-  Name:  Ethernet1/3
+   Interface Description: Site2-S3
+   Enable Interface: true
 
-  - Ethernet1/23:
-      Interface Description: Site2-L1
-      Enable Interface: True
+-  Name:  Ethernet1/23
+   Interface Description: Site2-L1
+   Enable Interface: true
 
-  - Ethernet1/24:
-      Interface Description: Site2-L1
-      Enable Interface: True
+-  Name:  Ethernet1/24
+   Interface Description: Site2-L1
+   Enable Interface: true

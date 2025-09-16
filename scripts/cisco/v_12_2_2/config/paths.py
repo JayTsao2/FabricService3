@@ -18,7 +18,7 @@ class ProjectPaths:
         self.project_root = self._get_project_root()
         
         # Core directories
-        self.scripts_dir = self.project_root / "scripts" / "cisco" / "12.2.2"
+        self.scripts_dir = self.project_root / "scripts" / "cisco" / "v_12_2_2"
         self.resources_dir = self.scripts_dir / "resources"
         self.network_configs_dir = self.project_root / "network_configs"
         

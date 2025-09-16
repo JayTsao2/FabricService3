@@ -50,7 +50,7 @@ VRF:
     VRF VLAN Name: bluevrf
     VRF Interface Description: bluevrf
     VRF Description: bluevrf
-    
+
 - Fabric: MSD_DCI
   VRF Name: bluevrf2
   VRF ID: 50001

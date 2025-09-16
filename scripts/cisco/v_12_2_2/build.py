@@ -16,7 +16,7 @@ import json
 import time
 
 # Add the cisco 12.2.2 directory to the Python path
-sys.path.append(os.path.join(os.path.dirname(__file__), 'cisco', '12.2.2'))
+sys.path.append(os.path.join(os.path.dirname(__file__), 'cisco', 'v_12_2_2'))
 
 # Import all the manager classes from different modules
 from modules.fabric import FabricManager
@@ -317,4 +317,3 @@ if __name__ == '__main__':
     builder = FabricBuilder()
     builder.build()
     # builder.delete()
-    pass
