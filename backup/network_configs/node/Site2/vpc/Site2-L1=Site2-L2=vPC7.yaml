@@ -1,0 +1,28 @@
+---
+Peer-1 Serial Number: 9JF2ODAS3WZ # peerOneId
+Peer-2 Serial Number: 99EUUY917LX # peerTwoId
+
+Policy:
+
+  Name: int_vpc_access_host
+
+  Policy Options:
+
+    Peer-1 Port-Channel ID: 7
+    Peer-2 Port-Channel ID: 7
+
+    Peer-1 Member Interfaces: eth1/7
+    Peer-2 Member Interfaces: eth1/7
+
+    Port Channel Mode: active
+    Enable BPDU Guard: false
+    Enable Port Type Fast: false
+
+    MTU: jumbo
+    SPEED: Auto
+
+    Peer-1 Access Vlan: 1121
+    Peer-2 Access Vlan: 1121
+
+#    Peer-1 PO Freeform Config:
+#    Peer-2 PO Freeform Config:

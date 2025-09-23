@@ -61,20 +61,6 @@ router bgp 4240650200
 configure terminal
 ===
 - Site2-L1
-interface ethernet1/23
-  switchport
-  switchport mode trunk
-  mtu 9216
-  spanning-tree port type edge trunk
-  shutdown
-  switchport trunk allowed vlan none
-interface ethernet1/24
-  switchport
-  switchport mode trunk
-  mtu 9216
-  spanning-tree port type edge trunk
-  shutdown
-  switchport trunk allowed vlan none
 router bgp 4240650200
   vrf vpc11
     neighbor Ethernet1/25
@@ -226,25 +212,25 @@ interface Vlan3911
   no shutdown
 exit
 interface nve1
-  member vni 33901 associate-vrf
   member vni 33910 associate-vrf
-  member vni 33911 associate-vrf
   member vni 50000 associate-vrf
-  member vni 30003
-    ingress-replication protocol bgp
+  member vni 33911 associate-vrf
+  member vni 33901 associate-vrf
   member vni 32023
-    ingress-replication protocol bgp
-  member vni 31121
-    ingress-replication protocol bgp
-  member vni 32253
-    ingress-replication protocol bgp
-  member vni 31118
-    ingress-replication protocol bgp
-  member vni 30001
     ingress-replication protocol bgp
   member vni 30002
     ingress-replication protocol bgp
   member vni 31120
+    ingress-replication protocol bgp
+  member vni 30003
+    ingress-replication protocol bgp
+  member vni 32253
+    ingress-replication protocol bgp
+  member vni 30001
+    ingress-replication protocol bgp
+  member vni 31118
+    ingress-replication protocol bgp
+  member vni 31121
     ingress-replication protocol bgp
 vlan 1118
   vn-segment 31118
@@ -348,20 +334,6 @@ evpn
 configure terminal
 ===
 - Site2-L2
-interface ethernet1/23
-  switchport
-  switchport mode trunk
-  mtu 9216
-  spanning-tree port type edge trunk
-  shutdown
-  switchport trunk allowed vlan none
-interface ethernet1/24
-  switchport
-  switchport mode trunk
-  mtu 9216
-  spanning-tree port type edge trunk
-  shutdown
-  switchport trunk allowed vlan none
 router bgp 4240650200
   vrf vpc11
     neighbor Ethernet1/25
@@ -514,24 +486,24 @@ interface Vlan3911
 exit
 interface nve1
   member vni 33911 associate-vrf
+  member vni 50000 associate-vrf
   member vni 33910 associate-vrf
   member vni 33901 associate-vrf
-  member vni 50000 associate-vrf
   member vni 30001
     ingress-replication protocol bgp
-  member vni 31118
-    ingress-replication protocol bgp
   member vni 32253
-    ingress-replication protocol bgp
-  member vni 31121
-    ingress-replication protocol bgp
-  member vni 32023
     ingress-replication protocol bgp
   member vni 30003
     ingress-replication protocol bgp
   member vni 31120
     ingress-replication protocol bgp
   member vni 30002
+    ingress-replication protocol bgp
+  member vni 32023
+    ingress-replication protocol bgp
+  member vni 31121
+    ingress-replication protocol bgp
+  member vni 31118
     ingress-replication protocol bgp
 vlan 1118
   vn-segment 31118

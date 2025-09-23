@@ -212,3 +212,6 @@ vrfs/
 interfaces/
 
 GEMINI.md
+
+.config_temp/
+.network_configs/

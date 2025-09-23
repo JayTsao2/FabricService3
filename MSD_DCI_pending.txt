@@ -1,0 +1,147 @@
+- Site2-BGW2
+route-map bdl_core permit 10
+  match ip address prefix-list ms
+router bgp 4240650200
+  rd dual id 1
+  template peer EBGP-PEER-TEMPLATE-CORE
+    bfd
+    log-neighbor-changes
+    address-family ipv4 unicast
+      route-map bdl_core out
+      soft-reconfiguration inbound always
+      exit
+    address-family ipv6 unicast
+      soft-reconfiguration inbound always
+      exit
+    exit
+  vrf z01
+    router-id 100.86.255.21
+    neighbor Ethernet1/34
+      inherit peer EBGP-PEER-TEMPLATE-CORE
+      remote-as 4240600101
+      exit
+    neighbor Ethernet1/35
+      inherit peer EBGP-PEER-TEMPLATE-CORE
+      remote-as 4240600101
+      exit
+    neighbor Ethernet1/36
+      inherit peer EBGP-PEER-TEMPLATE-CORE
+      remote-as 4240600101
+configure terminal
+===
+- Site2-BGW1
+route-map bdl_core permit 10
+  match ip address prefix-list ms
+router bgp 4240650200
+  rd dual id 1
+  template peer EBGP-PEER-TEMPLATE-CORE
+    bfd
+    log-neighbor-changes
+    address-family ipv4 unicast
+      route-map bdl_core out
+      soft-reconfiguration inbound always
+      exit
+    address-family ipv6 unicast
+      soft-reconfiguration inbound always
+      exit
+    exit
+  vrf z01
+    router-id 100.86.255.21
+    neighbor Ethernet1/34
+      inherit peer EBGP-PEER-TEMPLATE-CORE
+      remote-as 4240600101
+      exit
+    neighbor Ethernet1/35
+      inherit peer EBGP-PEER-TEMPLATE-CORE
+      remote-as 4240600101
+      exit
+    neighbor Ethernet1/36
+      inherit peer EBGP-PEER-TEMPLATE-CORE
+      remote-as 4240600101
+configure terminal
+===
+- Site1-BGW2
+route-map bdl_core permit 10
+  match ip address prefix-list ms
+router bgp 4240650100
+  rd dual id 1
+  template peer EBGP-PEER-TEMPLATE-CORE
+    bfd
+    log-neighbor-changes
+    address-family ipv4 unicast
+      route-map bdl_core out
+      soft-reconfiguration inbound always
+      exit
+    address-family ipv6 unicast
+      soft-reconfiguration inbound always
+      exit
+    exit
+  vrf z01
+    router-id 100.86.255.21
+    neighbor Ethernet1/34
+      inherit peer EBGP-PEER-TEMPLATE-CORE
+      remote-as 4240600101
+      exit
+    neighbor Ethernet1/35
+      inherit peer EBGP-PEER-TEMPLATE-CORE
+      remote-as 4240600101
+      exit
+    neighbor Ethernet1/36
+      inherit peer EBGP-PEER-TEMPLATE-CORE
+      remote-as 4240600101
+configure terminal
+===
+- Site1-BGW1
+route-map bdl_core permit 10
+  match ip address prefix-list ms
+router bgp 4240650100
+  rd dual id 1
+  template peer EBGP-PEER-TEMPLATE-CORE
+    bfd
+    log-neighbor-changes
+    address-family ipv4 unicast
+      route-map bdl_core out
+      soft-reconfiguration inbound always
+      exit
+    address-family ipv6 unicast
+      soft-reconfiguration inbound always
+      exit
+    exit
+  vrf z01
+    router-id 100.86.255.21
+    neighbor Ethernet1/34
+      inherit peer EBGP-PEER-TEMPLATE-CORE
+      remote-as 4240600101
+      exit
+    neighbor Ethernet1/35
+      inherit peer EBGP-PEER-TEMPLATE-CORE
+      remote-as 4240600101
+      exit
+    neighbor Ethernet1/36
+      inherit peer EBGP-PEER-TEMPLATE-CORE
+      remote-as 4240600101
+configure terminal
+===
+- Site1-L2
+===
+- Site1-DCI-1
+router ospf 100
+  log-adjacency-changes
+  timers throttle spf 50 50 5000
+  timers lsa-group-pacing 240
+  timers lsa-arrival 15
+  timers throttle lsa 0 50 5000
+line vty
+  session-limit 10
+  exec-timeout 60
+configure terminal
+===
+- Site2-DCI-1
+router ospf 100
+  log-adjacency-changes
+  timers throttle spf 50 50 5000
+  timers lsa-group-pacing 240
+  timers lsa-arrival 15
+  timers throttle lsa 0 50 5000
+configure terminal
+===

@@ -1,0 +1,9 @@
+---
+Change Mode: Normal # Normal <> maintenance
+Hostname: Site2-S1
+IP Address: 10.192.195.84
+IP Netmask Length: 24 # For management interface
+Role: Spine
+Serial Number: 9OP22XVW52T
+Platform: N9K-C9300v # For switch discovery
+Version: 9.3(15) # For switch discovery

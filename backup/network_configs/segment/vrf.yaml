@@ -1,0 +1,62 @@
+---
+VRF:
+
+- Fabric: MSD_DCI
+  VRF Name: VPC67
+  VRF ID: 33967
+  VLAN ID: 3967
+
+  General Parameters:
+    VRF VLAN Name: VLAN_VPC67
+    VRF Interface Description: INT_VPC67
+    VRF Description: VRF_VPC67
+
+- Fabric: MSD_DCI
+  VRF Name: Z01
+  VRF ID: 33901
+  VLAN ID: 3901
+
+  General Parameters:
+    VRF VLAN Name: VLAN_Z01
+    VRF Interface Description: INT_Z01
+    VRF Description: VRF_Z01
+
+- Fabric: MSD_DCI
+  VRF Name: VPC10
+  VRF ID: 33910
+  VLAN ID: 3910
+
+  General Parameters:
+    VRF VLAN Name: VLAN_VPC10
+    VRF Interface Description: INT_VPC10
+    VRF Description: VRF_VPC10
+
+- Fabric: MSD_DCI
+  VRF Name: VPC11
+  VRF ID: 33911
+  VLAN ID: 3911
+
+  General Parameters:
+    VRF VLAN Name: VLAN_VPC11
+    VRF Interface Description: INT_VPC11
+    VRF Description: VRF_VPC11
+
+- Fabric: MSD_DCI
+  VRF Name: bluevrf
+  VRF ID: 50000
+  VLAN ID: 2000
+
+  General Parameters:
+    VRF VLAN Name: bluevrf
+    VRF Interface Description: bluevrf
+    VRF Description: bluevrf
+
+- Fabric: MSD_DCI
+  VRF Name: bluevrf2
+  VRF ID: 50001
+  VLAN ID: 2001
+
+  General Parameters:
+    VRF VLAN Name: bluevrf
+    VRF Interface Description: bluevrf
+    VRF Description: bluevrf

@@ -1,0 +1,14 @@
+---
+Fabric:
+  type: VXLAN EVPN Multi-Site
+
+Child Fabric:
+  Fabric:
+    - Site1
+    - Site2
+  ISN:
+    - ISN
+
+DCI:
+  Multi-Site Route Server List: 192.168.240.1,192.168.240.2,192.168.240.3 # Multi-Site Route-Server peer list (typically loopback IP address on Route-Server for Multi-Site EVPN peering with BGWs), e.g. 128.89.0.1, 128.89.0.2. Provide a list of IPv6 addresses for IPv6 underlay, e.g. fd00::b10:1, fd00::b10:2
+  Multi-Site Route Server BGP ASN List: "64999,64998,64997" # 1-4294967295 | 1-65535[.0-65535], e.g. 65000, 65001

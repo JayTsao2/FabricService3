@@ -1,0 +1,38 @@
+---
+Change Mode: Normal # Normal <> maintenance
+Hostname: Site1-BGW1
+IP Address: 10.192.195.77
+IP Netmask Length: 24 # For management interface
+Role: border gateway
+Serial Number: 9LT3A74X1AS
+Platform: N9K-C9300v # For switch discovery
+Version: 9.3(15) # For switch discovery
+
+Switch Freeform Config: FreeForm\Site1-BGW1.sh
+
+Interface:
+
+-  Name:  Ethernet1/1
+   Interface Description: Site1-S1
+   Enable Interface: true
+
+-  Name:  Ethernet1/2
+   Interface Description: Site1-S2
+   Enable Interface: true
+
+-  Name:  Ethernet1/3
+   Interface Description: Site1-S3
+   Enable Interface: true
+
+-  Name:  Ethernet1/4
+   Interface Description: Site1-DCI-1
+   Enable Interface: true
+
+-  Name:  Ethernet1/5
+   Interface Description: Site1-DCI-2
+   Enable Interface: true
+
+-  Name:  Ethernet1/6
+   Interface Description: Site2-DCI-1
+   Enable Interface: true
+

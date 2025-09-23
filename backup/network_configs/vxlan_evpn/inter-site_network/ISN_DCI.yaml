@@ -1,0 +1,10 @@
+---
+Fabric:
+  type: Multi-Site Interconnect Network
+  Location: San Jose, US
+
+Advanced:
+  Fabric Freeform: # Additional CLIs, added before interface configurations, for all Leafs as captured from Show Running Configuration
+    Freeform: ISN_DCI_FreeForm\Fabric Freeform.sh
+  AAA Freeform Config:
+    Freeform: ISN_DCI_FreeForm\AAA Freeform Config.sh

@@ -5,7 +5,7 @@ Fabric:
   Location: San Jose, US
 
 General Parameter:
-  BGP ASN: 4240650200
+  BGP ASN: 4240650200 # 4-byte ASN , should be in the range of 4200000000 to 4294967294
 
 Resources:
   Underlay Routing Loopback IP Range: 192.168.242.0/24

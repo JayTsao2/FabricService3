@@ -62,7 +62,7 @@ class InterfaceManager:
             if admin_status_config == False:
                 print(f"[Interface] {self.YELLOW}Interface '{interface_name}' is administratively down, skip interface operation status check.{self.END}")
                 continue
-            policy = interface_config.get("policy", "").lower()
+            policy = interface_config.get("Policy", "").lower()
             if policy:
                 continue
             # print(f"[Interface] Interface '{interface_name}' does not have a policy defined, checking the operation status.{self.END}")

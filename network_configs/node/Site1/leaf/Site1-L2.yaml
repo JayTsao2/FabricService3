@@ -1,151 +1,147 @@
 ---
-Change Mode: Normal # Normal <> maintenance
+Change Mode: Normal
 Hostname: Site1-L2
 IP Address: 10.192.195.72
-IP Netmask Length: 24 # For management interface
+IP Netmask Length: 24
 Role: Leaf
-Serial Number: 95H3IT6BGM0
-Platform: N9K-C9300v # For switch discovery
-Version: 9.3(15) # For switch discovery
+Serial Number: 9WYTE6K1SWX
+Platform: N9K-C9300v
+Version: 9.3(15)
 
 Switch Freeform Config: FreeForm\Route_Leak.sh, FreeForm\VPC10.sh
 
 Interface:
 
--  Name:  Port-channel1501
-   Policy: int_port_channel_access_host
-   Port Channel Member Interfaces: e1/17-20
-   Port Channel Mode: active
-   Enable BPDU Guard: false
-   Enable Port Type Fast: false
-   MTU: jumbo
-   SPEED: Auto
-   Access Vlan: 1120
-#  Port Channel Description:
-   Enable Port Channel: true
-#  Freeform Config:
+  - Name: Port-channel1501
+    Policy: int_port_channel_access_host
+    Port Channel Member Interfaces: e1/17-20
+    Port Channel Mode: active
+    Enable BPDU Guard: False
+    Enable Port Type Fast: False
+    MTU: jumbo
+    SPEED: Auto
+    Access Vlan: 1120
+    Port Channel Description:
+    Enable Port Channel: True
+    Freeform Config:
 
--  Name:  Ethernet1/1
-   Interface Description: Site1-S1
-   Enable Interface: true
+  - Name: Ethernet1/1
+    Interface Description: Site1-S1
+    Enable Interface: True
 
--  Name:  Ethernet1/2
-   Interface Description: Site1-S2
-   Enable Interface: true
+  - Name: Ethernet1/2
+    Interface Description: Site1-S2
+    Enable Interface: True
 
--  Name:  Ethernet1/3
-   Interface Description: Site1-S3
-   Enable Interface: true
+  - Name: Ethernet1/8
+    Policy: int_access_host
+    Access Vlan: 1118
+    Interface Description:
+    MTU: jumbo
+    SPEED: Auto
+    Enable Interface: True
+    Freeform Config:
 
--  Name:  Ethernet1/8
-   Policy: int_access_host
-   Access Vlan: 1118
-#  Interface Description:
-   MTU: jumbo
-   SPEED: Auto
-   Enable Interface: true
-#  Freeform Config:
+  - Name: Ethernet1/9
+    Policy: int_access_host
+    Access Vlan: 2023
+    Interface Description:
+    MTU: jumbo
+    SPEED: Auto
+    Enable Interface: True
+    Freeform Config:
 
--  Name:  Ethernet1/9
-   Policy: int_access_host
-   Access Vlan: 2023
-#  Interface Description:
-   MTU: jumbo
-   SPEED: Auto
-   Enable Interface: true
-#  Freeform Config:
+  - Name: Ethernet1/10
+    Policy: int_access_host
+    Access Vlan: 2253
+    Interface Description:
+    MTU: jumbo
+    SPEED: Auto
+    Enable Interface: True
+    Freeform Config:
 
--  Name:  Ethernet1/10
-   Policy: int_access_host
-   Access Vlan: 2253
-#  Interface Description:
-   MTU: jumbo
-   SPEED: Auto
-   Enable Interface: true
-#  Freeform Config:
+  - Name: Ethernet1/11
+    Policy: int_access_host
+    Access Vlan: 1120
+    Interface Description:
+    MTU: jumbo
+    SPEED: Auto
+    Enable Interface: True
+    Freeform Config:
 
--  Name:  Ethernet1/11
-   Policy: int_access_host
-   Access Vlan: 1120
-#  Interface Description:
-   MTU: jumbo
-   SPEED: Auto
-   Enable Interface: true
-#  Freeform Config:
+  - Name: Ethernet1/12
+    Policy: int_access_host
+    Access Vlan: 1121
+    Interface Description:
+    MTU: jumbo
+    SPEED: Auto
+    Enable Interface: True
+    Freeform Config:
 
--  Name:  Ethernet1/12
-   Policy: int_access_host
-   Access Vlan: 1121
-#  Interface Description:
-   MTU: jumbo
-   SPEED: Auto
-   Enable Interface: true
-#  Freeform Config:
+  - Name: Ethernet1/13
+    Policy: int_trunk_host
+    Trunk Allowed Vlans: all
+    Interface Description:
+    MTU: jumbo
+    SPEED: Auto
+    Enable Interface: True
+    Freeform Config:
 
--  Name:  Ethernet1/13
-   Policy: int_trunk_host
-   Trunk Allowed Vlans: all
-#  Interface Description:
-   MTU: jumbo
-   SPEED: Auto
-   Enable Interface: true
-#  Freeform Config:
+  - Name: Ethernet1/14
+    Policy: int_trunk_host
+    Trunk Allowed Vlans: all
+    Interface Description:
+    MTU: jumbo
+    SPEED: Auto
+    Enable Interface: True
+    Freeform Config:
 
--  Name:  Ethernet1/14
-   Policy: int_trunk_host
-   Trunk Allowed Vlans: all
-#  Interface Description:
-   MTU: jumbo
-   SPEED: Auto
-   Enable Interface: true
-#  Freeform Config:
+  - Name: Ethernet1/15
+    Policy: int_routed_host
+    Interface VRF: VPC10
+    Interface IP:
+    IP Netmask Length:
+    Interface Description:
+    MTU: 9100
+    SPEED: Auto
+    Enable Interface: True
+    Freeform Config: FreeForm\L3_Link_Local.sh
 
--  Name:  Ethernet1/15
-   Policy: int_routed_host
-   Interface VRF: VPC10
-#  Interface IP:
-#  IP Netmask Length:
-#  Interface Description:
-   MTU: 9100
-   SPEED: Auto
-   Enable Interface: true
-   Freeform Config: FreeForm\L3_Link_Local.sh
+  - Name: Ethernet1/16
+    Policy: int_routed_host
+    Interface VRF: VPC10
+    Interface IP:
+    IP Netmask Length:
+    Interface Description:
+    MTU: 9100
+    SPEED: Auto
+    Enable Interface: True
+    Freeform Config: FreeForm\L3_Link_Local.sh
 
--  Name:  Ethernet1/16
-   Policy: int_routed_host
-   Interface VRF: VPC10
-#  Interface IP:
-#  IP Netmask Length:
-#  Interface Description:
-   MTU: 9100
-   SPEED: Auto
-   Enable Interface: true
-   Freeform Config: FreeForm\L3_Link_Local.sh
+  - Name: Ethernet1/17
+    Policy: int_port_channel_access_member_11_1
+    Interface Description: Port-channel1501
+    Enable Interface: True
 
--  Name:  Ethernet1/17
-   Policy: int_port_channel_access_member_11_1
-   Interface Description: Port-channel1501
-   Enable Interface: true
+  - Name: Ethernet1/18
+    Policy: int_port_channel_access_member_11_1
+    Interface Description: Port-channel1501
+    Enable Interface: True
 
--  Name:  Ethernet1/18
-   Policy: int_port_channel_access_member_11_1
-   Interface Description: Port-channel1501
-   Enable Interface: true
+  - Name: Ethernet1/19
+    Policy: int_port_channel_access_member_11_1
+    Interface Description: Port-channel1501
+    Enable Interface: True
 
--  Name:  Ethernet1/19
-   Policy: int_port_channel_access_member_11_1
-   Interface Description: Port-channel1501
-   Enable Interface: true
+  - Name: Ethernet1/20
+    Policy: int_port_channel_access_member_11_1
+    Interface Description: Port-channel1501
+    Enable Interface: True
 
--  Name:  Ethernet1/20
-   Policy: int_port_channel_access_member_11_1
-   Interface Description: Port-channel1501
-   Enable Interface: true
+  - Name: Ethernet1/23
+    Interface Description: Site1-L2
+    Enable Interface: True
 
--  Name:  Ethernet1/23
-   Interface Description: Site1-L2
-   Enable Interface: true
-
--  Name:  Ethernet1/24
-   Interface Description: Site1-L2
-   Enable Interface: true
+  - Name: Ethernet1/24
+    Interface Description: Site1-L2
+    Enable Interface: True

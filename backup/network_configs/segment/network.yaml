@@ -1,0 +1,82 @@
+---
+Network:
+
+- Fabric: MSD_DCI
+  Network Name: Z01_NET_1118
+  Layer 2 Only: false
+  VRF Name: Z01
+  Network ID: 31118
+  VLAN ID: 1118
+  IPv4 Gateway/NetMask: 100.118.0.254/24
+  VLAN Name: Z01_VLAN_1118
+  Interface Description: Z01_VLAN_1118
+
+- Fabric: MSD_DCI
+  Network Name: Z01_NET_2023
+  Layer 2 Only: false
+  VRF Name: Z01
+  Network ID: 32023
+  VLAN ID: 2023
+  IPv4 Gateway/NetMask: 10.23.192.254/24
+  VLAN Name: Z01_VLAN_2023
+  Interface Description: Z01_VLAN_2023
+
+- Fabric: MSD_DCI
+  Network Name: Z01_NET_2253
+  Layer 2 Only: false
+  VRF Name: Z01
+  Network ID: 32253
+  VLAN ID: 2253
+  IPv4 Gateway/NetMask: 10.253.192.254/24
+  VLAN Name: Z01_VLAN_2253
+  Interface Description: Z01_VLAN_2253
+
+- Fabric: MSD_DCI
+  Network Name: VPC10_NET_1120
+  Layer 2 Only: false
+  VRF Name: VPC10
+  Network ID: 31120
+  VLAN ID: 1120
+  IPv4 Gateway/NetMask: 100.120.0.254/24
+  VLAN Name: VPC10_VLAN_1120
+  Interface Description: VPC10_VLAN_1120
+
+- Fabric: MSD_DCI
+  Network Name: VPC11_NET_1121
+  Layer 2 Only: false
+  VRF Name: VPC11
+  Network ID: 31121
+  VLAN ID: 1121
+  IPv4 Gateway/NetMask: 100.121.0.254/24
+  VLAN Name: VPC10_VLAN_1121
+  Interface Description: VPC10_VLAN_1121
+
+- Fabric: MSD_DCI
+  Network Name: bluenet1
+  Layer 2 Only: false
+  VRF Name: bluevrf
+  Network ID: 30001
+  VLAN ID: 2300
+  IPv4 Gateway/NetMask: 192.168.11.1/24
+  VLAN Name: bluenet1
+  Interface Description: bluenet1
+
+- Fabric: MSD_DCI
+  Network Name: bluenet2
+  Layer 2 Only: false
+  VRF Name: bluevrf
+  Network ID: 30002
+  VLAN ID: 2301
+  IPv4 Gateway/NetMask: 192.168.12.1/24
+  VLAN Name: bluenet2
+  Interface Description: bluenet2
+
+- Fabric: MSD_DCI
+  Network Name: ExternalNetwork
+  Layer 2 Only: true
+  VRF Name: NA
+  Network ID: 30003
+  VLAN ID: 20
+#  IPv4 Gateway/NetMask:
+  VLAN Name: ExternalNetwork
+  Interface Description: ExternalNetwork

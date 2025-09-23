@@ -8,21 +8,21 @@ Policy:
 
   Policy Options:
 
-    Peer-1 Port-Channel ID: 7
-    Peer-2 Port-Channel ID: 7
+    Peer-1 Port-Channel ID: 7 # 1-4094
+    Peer-2 Port-Channel ID: 7 # 1-4094
 
-    Peer-1 Member Interfaces: eth1/7
-    Peer-2 Member Interfaces: eth1/7
+    Peer-1 Member Interfaces: eth1/7 #字串 (e1/[1-64]-[1-64]，或是用逗號分隔的多組 e1/[1-64],e1/[1-64]，除了e也可以是eth )
+    Peer-2 Member Interfaces: eth1/7 #字串 (e1/[1-64]-[1-64]，或是用逗號分隔的多組 e1/[1-64],e1/[1-64]，除了e也可以是eth )
 
-    Port Channel Mode: active
+    Port Channel Mode: active # Allowed     : on, active, passive
     Enable BPDU Guard: false
-    Enable Port Type Fast: false
+    Enable Port Type Fast: False
 
-    MTU: jumbo
-    SPEED: Auto
+    MTU: jumbo # Allowed     : jumbo, default
+    SPEED: Auto # Allowed     : Auto, 10Mb, 100Mb, 1Gb, 2.5Gb, 5Gb, 10Gb, 25Gb, 40Gb, 50Gb, 100Gb, 200Gb, 400Gb
 
-    Peer-1 Access Vlan: 1121
+    Peer-1 Access Vlan: 1121 # Allowed     : 1-4094 的整數
     Peer-2 Access Vlan: 1121
 
-#    Peer-1 PO Freeform Config:
-#    Peer-2 PO Freeform Config:
+    Peer-1 PO Freeform Config:
+    Peer-2 PO Freeform Config:

@@ -1,5 +1,5 @@
 ---
-Change Mode: Normal # Normal <> maintenance
+Change Mode: Normal # Normal <> Maintenance
 Hostname: Site1-L1
 IP Address: 10.192.195.71
 IP Netmask Length: 24 # For management interface
@@ -12,120 +12,136 @@ Switch Freeform Config: FreeForm\Route_Leak.sh, FreeForm\Shared_VRF_Z01.sh
 
 Interface:
 
--  Name:  Port-channel501
-   Policy: int_port_channel_trunk_host
-   Port Channel Member Interfaces: e1/17-20
-   Port Channel Mode: active
-   Enable BPDU Guard: false
-   Enable Port Type Fast: false
-   MTU: jumbo
-   SPEED: Auto
-   Trunk Allowed Vlans: all
-#  Port Channel Description:
-   Enable Port Channel: true
-#  Freeform Config:
+  - Name: Port-channel501
+    Policy: int_port_channel_trunk_host
+    Port Channel Member Interfaces: e1/17-20
+    Port Channel Mode: active
+    Enable BPDU Guard: False
+    Enable Port Type Fast: False
+    MTU: jumbo
+    SPEED: Auto
+    Trunk Allowed Vlans: all
+    Port Channel Description:
+    Enable Port Channel: True
+    Freeform Config:
 
--  Name:  Ethernet1/1
-   Interface Description: Site1-S1
-   Enable Interface: true
+  - Name: Ethernet1/1
+    Interface Description: Site1-S1
+    Enable Interface: True
 
--  Name:  Ethernet1/2
-   Interface Description: Site1-S2
-   Enable Interface: true
+  - Name: Ethernet1/2
+    Interface Description: Site1-S2
+    Enable Interface: True
 
--  Name:  Ethernet1/3
-   Interface Description: Site1-S3
-   Enable Interface: true
+  - Name: Ethernet1/8
+    Policy: int_access_host
+    Access Vlan: 1118
+    Interface Description:
+    MTU: jumbo
+    SPEED: Auto
+    Enable Interface: True
+    Freeform Config:
 
--  Name:  Ethernet1/8
-   Policy: int_access_host
-   Access Vlan: 1118
-#  Interface Description:
-   MTU: jumbo
-   SPEED: Auto
-   Enable Interface: true
-#  Freeform Config:
+  - Name: Ethernet1/9
+    Policy: int_access_host
+    Access Vlan: 2023
+    Interface Description:
+    MTU: jumbo
+    SPEED: Auto
+    Enable Interface: True
+    Freeform Config:
 
--  Name:  Ethernet1/9
-   Policy: int_access_host
-   Access Vlan: 2023
-#  Interface Description:
-   MTU: jumbo
-   SPEED: Auto
-   Enable Interface: true
-#  Freeform Config:
+  - Name: Ethernet1/10
+    Policy: int_access_host
+    Access Vlan: 2253
+    Interface Description:
+    MTU: jumbo
+    SPEED: Auto
+    Enable Interface: True
+    Freeform Config:
 
--  Name:  Ethernet1/10
-   Policy: int_access_host
-   Access Vlan: 2253
-#  Interface Description:
-   MTU: jumbo
-   SPEED: Auto
-   Enable Interface: true
-#  Freeform Config:
+  - Name: Ethernet1/11
+    Policy: int_access_host
+    Access Vlan: 1120
+    Interface Description:
+    MTU: jumbo
+    SPEED: Auto
+    Enable Interface: True
+    Freeform Config:
 
--  Name:  Ethernet1/11
-   Policy: int_access_host
-   Access Vlan: 1120
-#  Interface Description:
-   MTU: jumbo
-   SPEED: Auto
-   Enable Interface: true
-#  Freeform Config:
+  - Name: Ethernet1/12
+    Policy: int_access_host
+    Access Vlan: 1121
+    Interface Description:
+    MTU: jumbo
+    SPEED: Auto
+    Enable Interface: True
+    Freeform Config:
 
--  Name:  Ethernet1/12
-   Policy: int_access_host
-   Access Vlan: 1121
-#  Interface Description:
-   MTU: jumbo
-   SPEED: Auto
-   Enable Interface: true
-#  Freeform Config:
+  - Name: Ethernet1/13
+    Policy: int_trunk_host
+    Trunk Allowed Vlans: all
+    Interface Description:
+    MTU: jumbo
+    SPEED: Auto
+    Enable Interface: True
+    Freeform Config:
 
--  Name:  Ethernet1/13
-   Policy: int_trunk_host
-   Trunk Allowed Vlans: all
-#  Interface Description:
-   MTU: jumbo
-   SPEED: Auto
-   Enable Interface: true
-#  Freeform Config:
+  - Name: Ethernet1/14
+    Policy: int_trunk_host
+    Trunk Allowed Vlans: all
+    Interface Description:
+    MTU: jumbo
+    SPEED: Auto
+    Enable Interface: True
+    Freeform Config:
 
--  Name:  Ethernet1/14
-   Policy: int_trunk_host
-   Trunk Allowed Vlans: all
-#  Interface Description:
-   MTU: jumbo
-   SPEED: Auto
-   Enable Interface: true
-#  Freeform Config:
+  - Name: Ethernet1/15
+    Policy: int_routed_host
+    Interface VRF: Z01
+    Interface IP:
+    IP Netmask Length:
+    Interface Description:
+    MTU: 9100
+    SPEED: Auto
+    Enable Interface: True
+    Freeform Config: FreeForm\L3_Link_Local.sh
 
--  Name:  Ethernet1/15
-   Policy: int_routed_host
-   Interface VRF: Z01
-#  Interface IP:
-#  IP Netmask Length:
-#  Interface Description:
-   MTU: 9100
-   SPEED: Auto
-   Enable Interface: true
-   Freeform Config: FreeForm\L3_Link_Local.sh
+  - Name: Ethernet1/16
+    Policy: int_routed_host
+    Interface VRF: Z01
+    Interface IP:
+    IP Netmask Length:
+    Interface Description:
+    MTU: 9100
+    SPEED: Auto
+    Enable Interface: True
+    Freeform Config: FreeForm\L3_Link_Local.sh
 
--  Name:  Ethernet1/16
-   Policy: int_routed_host
-   Interface VRF: Z01
-#  Interface IP:
-#  IP Netmask Length:
-#  Interface Description:
-   MTU: 9100
-   SPEED: Auto
-   Enable Interface: true
-   Freeform Config: FreeForm\L3_Link_Local.sh
+  - Name: Ethernet1/17
+    Policy: int_port_channel_trunk_member_11_1
+    Interface Description: Port-channel501
+    Enable Interface: True
 
--  Name:  Ethernet1/23
-   Interface Description: Site1-L2
-   Enable Interface: true
+  - Name: Ethernet1/18
+    Policy: int_port_channel_trunk_member_11_1
+    Interface Description: Port-channel501
+    Enable Interface: True
 
--  Name:  Ethernet1/24
-   Interface Description: Site1-L2
-   Enable Interface: true
+  - Name: Ethernet1/19
+    Policy: int_port_channel_trunk_member_11_1
+    Interface Description: Port-channel501
+    Enable Interface: True
+
+  - Name: Ethernet1/20
+    Policy: int_port_channel_trunk_member_11_1
+    Interface Description: Port-channel501
+    Enable Interface: True
+
+  - Name: Ethernet1/23
+    Interface Description: Site1-L2
+    Enable Interface: True
+
+  - Name: Ethernet1/24
+    Interface Description: Site1-L2
+    Enable Interface: True

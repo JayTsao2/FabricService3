@@ -16,7 +16,7 @@ import json
 import time
 
 # Add the cisco 12.2.2 directory to the Python path
-sys.path.append(os.path.join(os.path.dirname(__file__), 'cisco', 'v_12_2_2'))
+sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 
 # Import all the manager classes from different modules
 from modules.fabric import FabricManager
@@ -136,6 +136,18 @@ class FabricBuilder:
         """
         Build the fabric configuration.
         """
+        # TODO: revised
+        from scripts.inventory.reachability_checks import conn_check, device_check, ping_check
+        if not ping_check.check():
+            print("PING CHECK FAILED")
+            return
+        if not device_check.check():
+            print("DEVICE CHECK FAILED")
+            return
+        if not conn_check.check():
+            print("CONN CHECK FAILED")
+            return
+
         self.banner()
         # Get the structured switch data
         switches_data = self.get_switch_list()
@@ -193,7 +205,7 @@ class FabricBuilder:
                 time.sleep(30)
                 success = self.fabric_manager.recalculate_config(fabric_name)
             self.fabric_manager.deploy_fabric(fabric_name)
-        
+
         for fabric_name in fabric_list:
             for role_name, switches in switches_data[fabric_name].items():
                 retry_time = 10
@@ -203,12 +215,12 @@ class FabricBuilder:
                     while not self.interface_manager.check_interface_operation_status(fabric_name, role_name, switch):
                         print(f"{self.BOLD}{self.YELLOW}Interface operation status check failed for {switch} in {fabric_name}. Trying in {retry_time} seconds.{self.END}")
                         time.sleep(retry_time)
-                        
+
         # Create VRFs (delete unwanted, update existing, create missing)
         print(f"{self.BOLD}{'=' * 20}Create VRFs{'=' * 20}{self.END}")
         for msd in msd_list:
             self.vrf_manager.sync(msd)
-        
+
         # Attach VRF to switches
         print(f"{self.BOLD}{'=' * 20}Attach VRF to switches{'=' * 20}{self.END}")
         for fabric_name, roles in switches_data.items():
@@ -254,7 +266,7 @@ class FabricBuilder:
             for role_name, switches in roles.items():
                 for switch in switches:
                     self.switch_manager.set_switch_freeform(fabric_name, role_name, switch)
-                    
+
         # Final recalculate for each fabric
         print(f"{self.BOLD}{'=' * 20}Final recalculate for each fabric{'=' * 20}{self.END}")
         for fabric_name in fabric_list:
@@ -262,7 +274,7 @@ class FabricBuilder:
             while not success:
                 time.sleep(10)
                 success = self.fabric_manager.recalculate_config(fabric_name)
-        
+
             # Get pending configs
             self.fabric_manager.get_pending_config(fabric_name)
         for fabric_name in msd_list:
@@ -273,8 +285,8 @@ class FabricBuilder:
             self.fabric_manager.get_pending_config(fabric_name)
 
         # Deploy fabric
-        # for fabric_name in switches_data.keys():
-        #     self.fabric_manager.deploy_fabric(fabric_name)
+        for fabric_name in switches_data.keys():
+            self.fabric_manager.deploy_fabric(fabric_name)
 
     def delete(self):
         """

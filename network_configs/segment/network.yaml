@@ -1,10 +1,10 @@
 ---
 Network:
 
-- Fabric: MSD_DCI
+- Fabric: MSD_DCI # 檢查 Fabric 檔案是否存在
   Network Name: Z01_NET_1118
-  Layer 2 Only: false
-  VRF Name: Z01
+  Layer 2 Only: False
+  VRF Name: Z01 # 檢查 VRF 檔案是否存在
   Network ID: 31118
   VLAN ID: 1118
   IPv4 Gateway/NetMask: 100.118.0.254/24
@@ -13,7 +13,7 @@ Network:
 
 - Fabric: MSD_DCI
   Network Name: Z01_NET_2023
-  Layer 2 Only: false
+  Layer 2 Only: False
   VRF Name: Z01
   Network ID: 32023
   VLAN ID: 2023
@@ -23,7 +23,7 @@ Network:
 
 - Fabric: MSD_DCI
   Network Name: Z01_NET_2253
-  Layer 2 Only: false
+  Layer 2 Only: False
   VRF Name: Z01
   Network ID: 32253
   VLAN ID: 2253
@@ -33,7 +33,7 @@ Network:
 
 - Fabric: MSD_DCI
   Network Name: VPC10_NET_1120
-  Layer 2 Only: false
+  Layer 2 Only: False
   VRF Name: VPC10
   Network ID: 31120
   VLAN ID: 1120
@@ -43,7 +43,7 @@ Network:
 
 - Fabric: MSD_DCI
   Network Name: VPC11_NET_1121
-  Layer 2 Only: false
+  Layer 2 Only: False
   VRF Name: VPC11
   Network ID: 31121
   VLAN ID: 1121
@@ -53,7 +53,7 @@ Network:
 
 - Fabric: MSD_DCI
   Network Name: bluenet1
-  Layer 2 Only: false
+  Layer 2 Only: False
   VRF Name: bluevrf
   Network ID: 30001
   VLAN ID: 2300
@@ -63,7 +63,7 @@ Network:
 
 - Fabric: MSD_DCI
   Network Name: bluenet2
-  Layer 2 Only: false
+  Layer 2 Only: False
   VRF Name: bluevrf
   Network ID: 30002
   VLAN ID: 2301
@@ -73,10 +73,10 @@ Network:
 
 - Fabric: MSD_DCI
   Network Name: ExternalNetwork
-  Layer 2 Only: true
+  Layer 2 Only: True
   VRF Name: NA
   Network ID: 30003
   VLAN ID: 20
-#  IPv4 Gateway/NetMask:
+  IPv4 Gateway/NetMask:
   VLAN Name: ExternalNetwork
   Interface Description: ExternalNetwork

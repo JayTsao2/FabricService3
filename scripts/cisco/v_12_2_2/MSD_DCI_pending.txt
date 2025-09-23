@@ -122,8 +122,6 @@ router bgp 4240650100
       remote-as 4240600101
 configure terminal
 ===
-- Site1-L2
-===
 - Site1-DCI-1
 router ospf 100
   log-adjacency-changes
