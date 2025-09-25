@@ -331,7 +331,7 @@ class VRFManager:
                     if not isinstance(interface_config, dict):
                         continue
 
-                    if interface_config.get("policy") != "int_routed_host":
+                    if interface_config.get("Policy") != "int_routed_host":
                         continue
 
                     vrf_name = interface_config.get("Interface VRF")
