@@ -98,10 +98,10 @@ class InterfaceManager:
             updated_interfaces = {}
             port_channel_map = {}
             for interface_dict in switch_config["Interface"]:
-                interface_name = next(iter(interface_dict.keys()))
-                interface_config = interface_dict[interface_name]
+                interface_name = interface_dict["Name"]
+                interface_config = interface_name
 
-                policy = interface_config.get("policy", "").lower()
+                policy = interface_config.get("Policy", "").lower()
                 if not policy:
                     self._handle_no_policy_interface(interface_name, serial_number, interface_config)
                     continue
@@ -160,10 +160,10 @@ class InterfaceManager:
 
         vlan = ""
         vlan_type = ""
-        if data.get("policy") == "int_port_channel_trunk_host":
+        if data.get("Policy") == "int_port_channel_trunk_host":
             vlan = data.get("Trunk Allowed Vlans", "none")
             vlan_type = "trunk"
-        elif data.get("policy") == "int_port_channel_access_host":
+        elif data.get("Policy") == "int_port_channel_access_host":
             vlan = data.get("Access Vlan", "")
             vlan_type = "access"
 
@@ -263,7 +263,7 @@ class InterfaceManager:
         nv_pairs["DESC"] = str(config.get("Interface Description")) if config.get("Interface Description") else ""
         nv_pairs["ADMIN_STATE"] = "true" if config.get("Enable Interface", False) else "false"
         nv_pairs["SPEED"] = str(config.get("SPEED", "Auto"))
-        policy = config.get("policy", "")
+        policy = config.get("Policy", "")
         
         # Policy-specific updates
         if policy == "int_access_host":

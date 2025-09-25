@@ -25,6 +25,7 @@ from modules.network import NetworkManager
 from modules.switch import SwitchManager
 from modules.interface import InterfaceManager
 from modules.vpc import VPCManager
+from send_to_telegram import notify_telegram
 
 
 class FabricBuilder:
@@ -140,12 +141,15 @@ class FabricBuilder:
         from scripts.inventory.reachability_checks import conn_check, device_check, ping_check
         if not ping_check.check():
             print("PING CHECK FAILED")
+            notify_telegram("PING CHECK FAILED")
             return
         if not device_check.check():
             print("DEVICE CHECK FAILED")
+            notify_telegram("DEVICE CHECK FAILED")
             return
         if not conn_check.check():
             print("CONN CHECK FAILED")
+            notify_telegram("CONN CHECK FAILED")
             return
 
         self.banner()
@@ -190,6 +194,7 @@ class FabricBuilder:
                 for fabric_name in fabric_list:
                     self.fabric_manager.add_to_msd(msd, fabric_name)
 
+        # Stage-1 / Recalculate and Deploy
         print(f"{self.BOLD}{'=' * 20}Recalculate & deploy for each fabric{'=' * 20}{self.END}")
         for fabric_name in fabric_list:
             success = self.fabric_manager.recalculate_config(fabric_name)
@@ -198,12 +203,14 @@ class FabricBuilder:
                 time.sleep(30)
                 success = self.fabric_manager.recalculate_config(fabric_name)
             self.fabric_manager.deploy_fabric(fabric_name)
+
         for fabric_name in msd_list:
             success = self.fabric_manager.recalculate_config(fabric_name)
             while not success:
                 # Sleep for 30 secs
                 time.sleep(30)
                 success = self.fabric_manager.recalculate_config(fabric_name)
+
             self.fabric_manager.deploy_fabric(fabric_name)
 
         for fabric_name in fabric_list:
@@ -215,6 +222,32 @@ class FabricBuilder:
                     while not self.interface_manager.check_interface_operation_status(fabric_name, role_name, switch):
                         print(f"{self.BOLD}{self.YELLOW}Interface operation status check failed for {switch} in {fabric_name}. Trying in {retry_time} seconds.{self.END}")
                         time.sleep(retry_time)
+
+
+        #Create VPC pairs for each fabric
+        print(f"{self.BOLD}{'=' * 20}Create VPC pairs{'=' * 20}{self.END}")
+        for fabric_name in fabric_list:
+            self.vpc_manager.create_vpc_pairs(fabric_name)
+
+        # Stage-2 / Recalculate and Deploy
+        print(f"{self.BOLD}{'=' * 20}Recalculate & deploy for each fabric{'=' * 20}{self.END}")
+        for fabric_name in fabric_list:
+            success = self.fabric_manager.recalculate_config(fabric_name)
+            while not success:
+                # Sleep for 30 secs
+                time.sleep(30)
+                success = self.fabric_manager.recalculate_config(fabric_name)
+            self.fabric_manager.deploy_fabric(fabric_name)
+
+        for fabric_name in msd_list:
+            success = self.fabric_manager.recalculate_config(fabric_name)
+            while not success:
+                # Sleep for 30 secs
+                time.sleep(30)
+                success = self.fabric_manager.recalculate_config(fabric_name)
+
+            self.fabric_manager.deploy_fabric(fabric_name)
+
 
         # Create VRFs (delete unwanted, update existing, create missing)
         print(f"{self.BOLD}{'=' * 20}Create VRFs{'=' * 20}{self.END}")
@@ -252,12 +285,8 @@ class FabricBuilder:
             for role_name, switches in roles.items():
                 for switch in switches:
                     self.interface_manager.update_switch_interfaces(fabric_name, role_name, switch)
-                    # self.interface_manager.deploy_switch_interfaces(fabric_name, role_name, switch)
+                    self.interface_manager.deploy_switch_interfaces(fabric_name, role_name, switch)
 
-        # Create VPC pairs for each fabric
-        # print(f"{self.BOLD}{'=' * 20}Create VPC pairs{'=' * 20}{self.END}")
-        # for fabric_name in fabric_list:
-        #     self.vpc_manager.create_vpc_pairs(fabric_name)
 
         # Set switch freeform configs
         print(f"{self.BOLD}{'=' * 20}Set switch freeform configs{'=' * 20}{self.END}")
@@ -297,7 +326,7 @@ class FabricBuilder:
         fabric_list = self.get_fabric_list()
         msd_list = self.get_MSD_list()
         isn_list = self.get_ISN_list()
-        
+
         # Delete all switches from all fabrics
         for fabric_name, roles in switches_data.items():
             for role_name, switches in roles.items():
@@ -315,11 +344,11 @@ class FabricBuilder:
         # Delete all fabrics
         for fabric_name in fabric_list:
             self.fabric_manager.delete_fabric(fabric_name)
-        
+
         # Delete ISN fabrics
         for isn in isn_list:
             self.fabric_manager.delete_fabric(isn)
-        
+
         # Delete MSD fabrics
         for msd in msd_list:
             self.fabric_manager.delete_fabric(msd)
@@ -328,4 +357,7 @@ class FabricBuilder:
 if __name__ == '__main__':
     builder = FabricBuilder()
     builder.build()
+    notify_telegram("Fabric Builder Done ✅")
+
     # builder.delete()
+    # notify_telegram("Fabric Deleted ✅")

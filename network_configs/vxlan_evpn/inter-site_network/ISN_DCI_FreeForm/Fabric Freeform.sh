@@ -93,18 +93,18 @@ snmp-server enable traps mmode cseMaintModeChangeNotify
 snmp-server community public group network-operator
 
 route-map ctob permit 10
-router ospf 100
-  log-adjacency-changes
-  timers throttle spf 50 50 5000
-  timers lsa-group-pacing 240
-  timers lsa-arrival 15
-  timers throttle lsa 0 50 5000
+#router ospf 100
+#  log-adjacency-changes
+#  timers throttle spf 50 50 5000
+#  timers lsa-group-pacing 240
+#  timers lsa-arrival 15
+#  timers throttle lsa 0 50 5000
 
 line console
   exec-timeout 60
-line vty
-  session-limit 10
-  exec-timeout 60
+#line vty
+#  session-limit 10
+#  exec-timeout 60
 
 logging logfile messages 6 size 81920
 logging source-interface mgmt0
