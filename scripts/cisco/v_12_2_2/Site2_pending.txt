@@ -1,4 +1,13 @@
 - Site2-BGW1
+interface ethernet1/34
+  no switchport
+  no shutdown
+  vrf member z01
+  mtu 9100
+  ip address 10.255.255.1/31
+    bfd interval 300 min_rx 300 multiplier 3
+  ipv6 address fd00:101:c00:0:10:50:32:111/127
+  ipv6 nd suppress-ra
 route-map bdl_core permit 10
   match ip address prefix-list ms
 router bgp 4240650200
@@ -29,35 +38,18 @@ router bgp 4240650200
       remote-as 4240600101
 configure terminal
 ===
-- Site2-BGW2
-route-map bdl_core permit 10
-  match ip address prefix-list ms
+- Site2-S2
+===
+- Site2-S1
+===
+- Site2-L2
 router bgp 4240650200
-  rd dual id 1
-  template peer EBGP-PEER-TEMPLATE-CORE
-    bfd
-    log-neighbor-changes
-    address-family ipv4 unicast
-      route-map bdl_core out
-      soft-reconfiguration inbound always
+  vrf vpc11
+    neighbor Ethernet1/25
+      inherit peer ebgp-peer-template-node
       exit
-    address-family ipv6 unicast
-      soft-reconfiguration inbound always
-      exit
-    exit
-  vrf z01
-    router-id 100.86.255.21
-    neighbor Ethernet1/34
-      inherit peer EBGP-PEER-TEMPLATE-CORE
-      remote-as 4240600101
-      exit
-    neighbor Ethernet1/35
-      inherit peer EBGP-PEER-TEMPLATE-CORE
-      remote-as 4240600101
-      exit
-    neighbor Ethernet1/36
-      inherit peer EBGP-PEER-TEMPLATE-CORE
-      remote-as 4240600101
+    neighbor Ethernet1/26
+      inherit peer ebgp-peer-template-node
 configure terminal
 ===
 - Site2-L1
@@ -70,17 +62,43 @@ router bgp 4240650200
       inherit peer ebgp-peer-template-node
 configure terminal
 ===
-- Site2-L2
+- Site2-BGW2
+interface ethernet1/34
+  no switchport
+  vrf member z01
+  mtu 9100
+  no shutdown
+  ip address 10.255.255.5/31
+    bfd interval 300 min_rx 300 multiplier 3
+  ipv6 address fd00:101:c00:0:10:50:32:111/127
+  ipv6 nd suppress-ra
+route-map bdl_core permit 10
+  match ip address prefix-list ms
 router bgp 4240650200
-  vrf vpc11
-    neighbor Ethernet1/25
-      inherit peer ebgp-peer-template-node
+  rd dual id 1
+  template peer EBGP-PEER-TEMPLATE-CORE
+    bfd
+    log-neighbor-changes
+    address-family ipv4 unicast
+      route-map bdl_core out
+      soft-reconfiguration inbound always
       exit
-    neighbor Ethernet1/26
-      inherit peer ebgp-peer-template-node
+    address-family ipv6 unicast
+      soft-reconfiguration inbound always
+      exit
+    exit
+  vrf z01
+    router-id 100.86.255.21
+    neighbor Ethernet1/34
+      inherit peer EBGP-PEER-TEMPLATE-CORE
+      remote-as 4240600101
+      exit
+    neighbor Ethernet1/35
+      inherit peer EBGP-PEER-TEMPLATE-CORE
+      remote-as 4240600101
+      exit
+    neighbor Ethernet1/36
+      inherit peer EBGP-PEER-TEMPLATE-CORE
+      remote-as 4240600101
 configure terminal
-===
-- Site2-S1
-===
-- Site2-S2
 ===

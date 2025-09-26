@@ -213,15 +213,15 @@ class FabricBuilder:
 
             self.fabric_manager.deploy_fabric(fabric_name)
 
-        for fabric_name in fabric_list:
-            for role_name, switches in switches_data[fabric_name].items():
-                retry_time = 10
-                for switch in switches:
-                    # Check interface operation status
-                    print(f"{self.BOLD}{'=' * 20}Check interface operation status for {switch} in {fabric_name}{self.END}")
-                    while not self.interface_manager.check_interface_operation_status(fabric_name, role_name, switch):
-                        print(f"{self.BOLD}{self.YELLOW}Interface operation status check failed for {switch} in {fabric_name}. Trying in {retry_time} seconds.{self.END}")
-                        time.sleep(retry_time)
+        # for fabric_name in fabric_list:
+        #     for role_name, switches in switches_data[fabric_name].items():
+        #         retry_time = 10
+        #         for switch in switches:
+        #             # Check interface operation status
+        #             print(f"{self.BOLD}{'=' * 20}Check interface operation status for {switch} in {fabric_name}{self.END}")
+        #             while not self.interface_manager.check_interface_operation_status(fabric_name, role_name, switch):
+        #                 print(f"{self.BOLD}{self.YELLOW}Interface operation status check failed for {switch} in {fabric_name}. Trying in {retry_time} seconds.{self.END}")
+        #                 time.sleep(retry_time)
 
 
         #Create VPC pairs for each fabric

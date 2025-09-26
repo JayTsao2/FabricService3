@@ -48,8 +48,8 @@ class InterfaceManager:
             return True
 
         for interface_dict in switch_config["Interface"]:
-            interface_name = next(iter(interface_dict.keys()))
-            interface_config = interface_dict[interface_name]
+            interface_name = interface_dict["Name"]
+            interface_config = interface_dict
 
             admin_status_config = interface_config.get("Enable Interface")
             if admin_status_config is None:
@@ -98,21 +98,22 @@ class InterfaceManager:
             updated_interfaces = {}
             port_channel_map = {}
             for interface_dict in switch_config["Interface"]:
-                interface_name = interface_dict.get("Name", "")
+                interface_name = interface_dict["Name"]
+                interface_config = interface_name
 
-                policy = interface_dict.get("Policy", "").lower()
+                policy = interface_config.get("Policy", "").lower()
                 if not policy:
-                    self._handle_no_policy_interface(interface_name, serial_number, interface_dict)
+                    self._handle_no_policy_interface(interface_name, serial_number, interface_config)
                     continue
 
-                nv_pairs = self._get_nv_pairs(interface_dict, interface_name)
+                nv_pairs = self._get_nv_pairs(interface_config, interface_name)
                 if interface_name.lower().startswith('port-channel'):
-                    port_channel_map.update(self._create_port_channel_mapping(interface_name, interface_dict))
+                    port_channel_map.update(self._create_port_channel_mapping(interface_name, interface_config))
 
                 if "port_channel" in policy and "member" in policy:
                     nv_pairs.update(self._get_port_member_nv_pairs(interface_name, port_channel_map))
 
-                nv_pairs["CONF"] = self._get_freeform_config(interface_dict, fabric_name, role)
+                nv_pairs["CONF"] = self._get_freeform_config(interface_config, fabric_name, role)
                 if policy not in updated_interfaces:
                     updated_interfaces[policy] = []
 

@@ -29,311 +29,25 @@ router bgp 4240650100
       remote-as 4240600101
 configure terminal
 ===
-- Site1-BGW2
-route-map bdl_core permit 10
-  match ip address prefix-list ms
-router bgp 4240650100
-  rd dual id 1
-  template peer EBGP-PEER-TEMPLATE-CORE
-    bfd
-    log-neighbor-changes
-    address-family ipv4 unicast
-      route-map bdl_core out
-      soft-reconfiguration inbound always
-      exit
-    address-family ipv6 unicast
-      soft-reconfiguration inbound always
-      exit
-    exit
-  vrf z01
-    router-id 100.86.255.21
-    neighbor Ethernet1/34
-      inherit peer EBGP-PEER-TEMPLATE-CORE
-      remote-as 4240600101
-      exit
-    neighbor Ethernet1/35
-      inherit peer EBGP-PEER-TEMPLATE-CORE
-      remote-as 4240600101
-      exit
-    neighbor Ethernet1/36
-      inherit peer EBGP-PEER-TEMPLATE-CORE
-      remote-as 4240600101
-configure terminal
+- Site1-S2
 ===
-- Site1-L1
-router bgp 4240650100
-  vrf z01
-    neighbor Ethernet1/15
-      inherit peer ebgp-peer-template-node
-      exit
-    neighbor Ethernet1/16
-      inherit peer ebgp-peer-template-node
-      exit
-    address-family ipv4 unicast
-      advertise l2vpn evpn
-      redistribute direct route-map fabric-rmap-redist-subnet
-      maximum-paths ibgp 2
-      exit
-    address-family ipv6 unicast
-      advertise l2vpn evpn
-      redistribute direct route-map fabric-rmap-redist-subnet
-      maximum-paths ibgp 2
-      exit
-    exit
-  vrf bluevrf
-    address-family ipv4 unicast
-      advertise l2vpn evpn
-      redistribute direct route-map fabric-rmap-redist-subnet
-      maximum-paths ibgp 2
-      exit
-    address-family ipv6 unicast
-      advertise l2vpn evpn
-      redistribute direct route-map fabric-rmap-redist-subnet
-      maximum-paths ibgp 2
-      exit
-    exit
-  vrf vpc10
-    address-family ipv4 unicast
-      advertise l2vpn evpn
-      redistribute direct route-map fabric-rmap-redist-subnet
-      maximum-paths ibgp 2
-      exit
-    address-family ipv6 unicast
-      advertise l2vpn evpn
-      redistribute direct route-map fabric-rmap-redist-subnet
-      maximum-paths ibgp 2
-      exit
-    exit
-  vrf vpc11
-    address-family ipv4 unicast
-      advertise l2vpn evpn
-      redistribute direct route-map fabric-rmap-redist-subnet
-      maximum-paths ibgp 2
-      exit
-    address-family ipv6 unicast
-      advertise l2vpn evpn
-      redistribute direct route-map fabric-rmap-redist-subnet
-      maximum-paths ibgp 2
-configure terminal
-vlan 2000
-  name bluevrf
-  vn-segment 50000
-vlan 3901
-  name VLAN_Z01
-  vn-segment 33901
-vlan 3910
-  name VLAN_VPC10
-  vn-segment 33910
-vlan 3911
-  name VLAN_VPC11
-  vn-segment 33911
-vrf context bluevrf
-  description bluevrf
-  vni 50000
-  rd auto
-  address-family ipv4 unicast
-    route-target both auto
-    route-target both auto evpn
-  address-family ipv6 unicast
-    route-target both auto
-    route-target both auto evpn
-exit
-vrf context vpc10
-  description VRF_VPC10
-  vni 33910
-  rd auto
-  address-family ipv4 unicast
-    route-target both auto
-    route-target both auto evpn
-  address-family ipv6 unicast
-    route-target both auto
-    route-target both auto evpn
-exit
-vrf context vpc11
-  description VRF_VPC11
-  vni 33911
-  rd auto
-  address-family ipv4 unicast
-    route-target both auto
-    route-target both auto evpn
-  address-family ipv6 unicast
-    route-target both auto
-    route-target both auto evpn
-exit
-vrf context z01
-  description VRF_Z01
-  vni 33901
-  rd auto
-  address-family ipv4 unicast
-    route-target both auto
-    route-target both auto evpn
-  address-family ipv6 unicast
-    route-target both auto
-    route-target both auto evpn
-exit
-interface Vlan2000
-  description bluevrf
-  vrf member bluevrf
-  ip forward
-  ipv6 address use-link-local-only
-  no ip redirects
-  no ipv6 redirects
-  mtu 9216
-  no shutdown
-exit
-interface Vlan3901
-  description INT_Z01
-  vrf member z01
-  ip forward
-  ipv6 address use-link-local-only
-  no ip redirects
-  no ipv6 redirects
-  mtu 9216
-  no shutdown
-exit
-interface Vlan3910
-  description INT_VPC10
-  vrf member vpc10
-  ip forward
-  ipv6 address use-link-local-only
-  no ip redirects
-  no ipv6 redirects
-  mtu 9216
-  no shutdown
-exit
-interface Vlan3911
-  description INT_VPC11
-  vrf member vpc11
-  ip forward
-  ipv6 address use-link-local-only
-  no ip redirects
-  no ipv6 redirects
-  mtu 9216
-  no shutdown
-exit
-interface nve1
-  member vni 33911 associate-vrf
-  member vni 33901 associate-vrf
-  member vni 50000 associate-vrf
-  member vni 33910 associate-vrf
-  member vni 31120
-    ingress-replication protocol bgp
-  member vni 32023
-    ingress-replication protocol bgp
-  member vni 30002
-    ingress-replication protocol bgp
-  member vni 31121
-    ingress-replication protocol bgp
-  member vni 32253
-    ingress-replication protocol bgp
-  member vni 31118
-    ingress-replication protocol bgp
-  member vni 30001
-    ingress-replication protocol bgp
-  member vni 30003
-    ingress-replication protocol bgp
-vlan 1118
-  vn-segment 31118
-configure terminal
-vlan 1120
-  vn-segment 31120
-configure terminal
-vlan 1121
-  vn-segment 31121
-configure terminal
-vlan 20
-  vn-segment 30003
-configure terminal
-vlan 2023
-  vn-segment 32023
-configure terminal
-vlan 2253
-  vn-segment 32253
-configure terminal
-vlan 2300
-  vn-segment 30001
-configure terminal
-vlan 2301
-  vn-segment 30002
-configure terminal
-interface Vlan1118
-  vrf member z01
-  ip address 100.118.0.254/24
-  fabric forwarding mode anycast-gateway
-  no shutdown
-exit
-interface Vlan1120
-  vrf member vpc10
-  ip address 100.120.0.254/24
-  fabric forwarding mode anycast-gateway
-  no shutdown
-exit
-interface Vlan1121
-  vrf member vpc11
-  ip address 100.121.0.254/24
-  fabric forwarding mode anycast-gateway
-  no shutdown
-exit
-interface Vlan2023
-  vrf member z01
-  ip address 10.23.192.254/24
-  fabric forwarding mode anycast-gateway
-  no shutdown
-exit
-interface Vlan2253
-  vrf member z01
-  ip address 10.253.192.254/24
-  fabric forwarding mode anycast-gateway
-  no shutdown
-exit
-interface Vlan2300
-  vrf member bluevrf
-  ip address 192.168.11.1/24
-  fabric forwarding mode anycast-gateway
-  no shutdown
-exit
-interface Vlan2301
-  vrf member bluevrf
-  ip address 192.168.12.1/24
-  fabric forwarding mode anycast-gateway
-  no shutdown
-exit
-evpn
-  vni 30003 l2
-    rd auto
-    route-target import auto
-    route-target export auto
-  vni 30001 l2
-    rd auto
-    route-target import auto
-    route-target export auto
-  vni 30002 l2
-    rd auto
-    route-target import auto
-    route-target export auto
-  vni 31118 l2
-    rd auto
-    route-target import auto
-    route-target export auto
-  vni 31120 l2
-    rd auto
-    route-target import auto
-    route-target export auto
-  vni 31121 l2
-    rd auto
-    route-target import auto
-    route-target export auto
-  vni 32023 l2
-    rd auto
-    route-target import auto
-    route-target export auto
-  vni 32253 l2
-    rd auto
-    route-target import auto
-    route-target export auto
-configure terminal
+- Site1-S1
 ===
 - Site1-L2
+interface ethernet1/23
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/24
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  shutdown
+  switchport trunk allowed vlan none
 router bgp 4240650100
   vrf vpc10
     neighbor Ethernet1/21
@@ -485,25 +199,25 @@ interface Vlan3911
   no shutdown
 exit
 interface nve1
-  member vni 33901 associate-vrf
-  member vni 33911 associate-vrf
   member vni 33910 associate-vrf
+  member vni 33901 associate-vrf
   member vni 50000 associate-vrf
-  member vni 30002
-    ingress-replication protocol bgp
-  member vni 31120
-    ingress-replication protocol bgp
-  member vni 32023
-    ingress-replication protocol bgp
+  member vni 33911 associate-vrf
   member vni 31118
     ingress-replication protocol bgp
-  member vni 30001
-    ingress-replication protocol bgp
   member vni 30003
+    ingress-replication protocol bgp
+  member vni 31120
     ingress-replication protocol bgp
   member vni 31121
     ingress-replication protocol bgp
   member vni 32253
+    ingress-replication protocol bgp
+  member vni 30001
+    ingress-replication protocol bgp
+  member vni 32023
+    ingress-replication protocol bgp
+  member vni 30002
     ingress-replication protocol bgp
 vlan 1118
   vn-segment 31118
@@ -606,7 +320,922 @@ evpn
     route-target export auto
 configure terminal
 ===
-- Site1-S1
+- Site1-L1
+cfs eth distribute
+feature lacp
+feature ngoam
+feature nxapi
+feature ospf
+nv overlay evpn
+feature interface-vlan
+feature vn-segment-vlan-based
+feature lldp
+feature nv overlay
+feature bgp
+fabric forwarding anycast-gateway-mac 0204.0204.0204
+feature bfd
+ngoam install acl
+ntp server 10.11.82.31 use-vrf management
+ntp server 10.11.83.31 use-vrf management
+nxapi http port 80
+nxapi https port 443
+snmp-server host 10.192.195.24 traps version 2c public udp-port 2162
+route-map fabric-rmap-redist-subnet permit 10
+  match tag 12345
+router bgp 4240650100
+  router-id 192.168.241.2
+  neighbor 192.168.241.3
+    inherit peer iBGP-PEER-Template
+    exit
+  neighbor 192.168.241.4
+    inherit peer iBGP-PEER-Template
+    exit
+  template peer iBGP-PEER-Template
+    remote-as 4240650100
+    log-neighbor-changes
+    update-source loopback1
+    address-family l2vpn evpn
+      send-community both
+      exit
+    exit
+  vrf z01
+    neighbor Ethernet1/15
+      inherit peer ebgp-peer-template-node
+      exit
+    neighbor Ethernet1/16
+      inherit peer ebgp-peer-template-node
+      exit
+    address-family ipv4 unicast
+      advertise l2vpn evpn
+      redistribute direct route-map fabric-rmap-redist-subnet
+      maximum-paths ibgp 2
+      exit
+    address-family ipv6 unicast
+      advertise l2vpn evpn
+      redistribute direct route-map fabric-rmap-redist-subnet
+      maximum-paths ibgp 2
+      exit
+    exit
+  vrf bluevrf
+    address-family ipv4 unicast
+      advertise l2vpn evpn
+      redistribute direct route-map fabric-rmap-redist-subnet
+      maximum-paths ibgp 2
+      exit
+    address-family ipv6 unicast
+      advertise l2vpn evpn
+      redistribute direct route-map fabric-rmap-redist-subnet
+      maximum-paths ibgp 2
+      exit
+    exit
+  vrf vpc10
+    address-family ipv4 unicast
+      advertise l2vpn evpn
+      redistribute direct route-map fabric-rmap-redist-subnet
+      maximum-paths ibgp 2
+      exit
+    address-family ipv6 unicast
+      advertise l2vpn evpn
+      redistribute direct route-map fabric-rmap-redist-subnet
+      maximum-paths ibgp 2
+      exit
+    exit
+  vrf vpc11
+    address-family ipv4 unicast
+      advertise l2vpn evpn
+      redistribute direct route-map fabric-rmap-redist-subnet
+      maximum-paths ibgp 2
+      exit
+    address-family ipv6 unicast
+      advertise l2vpn evpn
+      redistribute direct route-map fabric-rmap-redist-subnet
+      maximum-paths ibgp 2
+configure terminal
+router ospf 100
+  router-id 192.168.241.2
+  bfd
+  log-adjacency-changes
+  timers throttle spf 50 50 5000
+  timers lsa-group-pacing 240
+  timers lsa-arrival 15
+  timers throttle lsa 0 50 5000
+interface loopback0
+  ip address 192.168.231.2/32
+  ip router ospf 100 area 192.168.0.0
+  description VTEP loopback interface
+  no shutdown
+interface loopback1
+  ip address 192.168.241.2/32
+  ip router ospf 100 area 192.168.0.0
+  description Routing loopback interface
+  no shutdown
+interface nve1
+  source-interface loopback0
+  host-reachability protocol bgp
+  no shutdown
+  member vni 33901 associate-vrf
+  member vni 33910 associate-vrf
+  member vni 50000 associate-vrf
+  member vni 33911 associate-vrf
+  member vni 31121
+    ingress-replication protocol bgp
+  member vni 32253
+    ingress-replication protocol bgp
+  member vni 31118
+    ingress-replication protocol bgp
+  member vni 31120
+    ingress-replication protocol bgp
+  member vni 30003
+    ingress-replication protocol bgp
+  member vni 32023
+    ingress-replication protocol bgp
+  member vni 30002
+    ingress-replication protocol bgp
+  member vni 30001
+    ingress-replication protocol bgp
+interface ethernet1/1
+  no switchport
+  ip address 192.168.11.1/31
+  mtu 9100
+  ip router ospf 100 area 192.168.0.0
+  ip ospf network point-to-point
+  no ip redirects
+  no ipv6 redirects
+  no shutdown
+  description connected-to-Site1-S1-Ethernet1/1
+interface ethernet1/2
+  no switchport
+  ip address 192.168.11.3/31
+  mtu 9100
+  ip router ospf 100 area 192.168.0.0
+  ip ospf network point-to-point
+  no ip redirects
+  no ipv6 redirects
+  no shutdown
+  description connected-to-Site1-S2-Ethernet1/1
+interface ethernet1/21
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/22
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/25
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/26
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/27
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/28
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/29
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/3
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/30
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/31
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/32
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/33
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/34
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/35
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/36
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/37
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/38
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/39
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/4
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/40
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/41
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/42
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/43
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/44
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/45
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/46
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/47
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/48
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/49
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/5
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/50
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/51
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/52
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/53
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/54
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/55
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/56
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/57
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/58
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/59
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/6
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/60
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/61
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/62
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/63
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/64
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/7
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  no shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/23
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/24
+  switchport
+  switchport mode trunk
+  mtu 9216
+  spanning-tree port type edge trunk
+  shutdown
+  switchport trunk allowed vlan none
+interface ethernet1/15
+  no switchport
+  vrf member z01
+  mtu 9100
+  no shutdown
+  bfd interval 500 min_rx 500 multiplier 6
+  no bfd echo
+  no bfd ipv6 echo
+  no ip redirects
+  ip forward
+  ipv6 address use-link-local-only
+  ipv6 nd ra-interval 4 min 3
+  ipv6 nd ra-lifetime 10
+  no ipv6 redirects
+interface ethernet1/16
+  no switchport
+  vrf member z01
+  mtu 9100
+  no shutdown
+  bfd interval 500 min_rx 500 multiplier 6
+  no bfd echo
+  no bfd ipv6 echo
+  no ip redirects
+  ip forward
+  ipv6 address use-link-local-only
+  ipv6 nd ra-interval 4 min 3
+  ipv6 nd ra-lifetime 10
+  no ipv6 redirects
+no terminal dont-ask
+banner motd `****************************************************
+*   NSD NDFC Fabric Builder 2.0       2025-05-03   *                   
+****************************************************
+
+`
+terminal dont-ask
+interface port-channel501
+  switchport
+  switchport mode trunk
+  mtu 9216
+  shutdown
+  switchport trunk allowed vlan 1-4094
+interface ethernet1/17
+  channel-group 501 force mode active
+  description Port-channel501
+  no shutdown
+interface ethernet1/18
+  channel-group 501 force mode active
+  description Port-channel501
+  no shutdown
+interface ethernet1/19
+  channel-group 501 force mode active
+  description Port-channel501
+  no shutdown
+interface ethernet1/20
+  channel-group 501 force mode active
+  description Port-channel501
+  no shutdown
+interface ethernet1/10
+  switchport
+  switchport mode access
+  mtu 9216
+  spanning-tree bpduguard enable
+  spanning-tree port type edge
+  switchport access vlan 2253
+  no shutdown
+interface ethernet1/11
+  switchport
+  switchport mode access
+  mtu 9216
+  spanning-tree bpduguard enable
+  spanning-tree port type edge
+  switchport access vlan 1120
+  no shutdown
+interface ethernet1/12
+  switchport
+  switchport mode access
+  mtu 9216
+  spanning-tree bpduguard enable
+  spanning-tree port type edge
+  switchport access vlan 1121
+  no shutdown
+interface ethernet1/8
+  switchport
+  switchport mode access
+  mtu 9216
+  spanning-tree bpduguard enable
+  spanning-tree port type edge
+  switchport access vlan 1118
+  no shutdown
+interface ethernet1/9
+  switchport
+  switchport mode access
+  mtu 9216
+  spanning-tree bpduguard enable
+  spanning-tree port type edge
+  switchport access vlan 2023
+  no shutdown
+feature telnet
+clock timezone Taiwan 8 0
+ip domain-name tsmc.com.tw
+ip access-list network_admin
+  10 remark tw admin zone
+  11 permit ip 10.192.195.0/24 any
+  20 permit ip 10.66.0.0/16 any
+  30 permit ip 10.67.0.0/16 any
+  40 permit ip 10.68.0.0/16 any
+  50 remark hq ent admin zone 1.5
+  60 permit ip 10.164.137.0/24 any log
+  70 permit ip 10.164.134.0/24 any log
+  80 permit ip 10.164.139.0/24 any log
+  90 remark tw break glass servers
+  100 permit ip 10.228.94.227/32 any log
+  110 permit ip 10.228.94.228/32 any log
+  120 permit ip 10.79.236.32/32 any log
+  130 permit ip 10.223.236.32/32 any log
+  140 permit ip 10.164.89.31/32 any log
+  150 permit ip 10.164.90.31/32 any log
+  160 remark ent/infra tks automation service
+  170 permit ip 10.225.248.0/24 any
+  180 permit ip 10.225.60.0/24 any
+  250 remark h-site office service and algosec
+  260 permit ip 10.228.91.0/24 any
+  270 permit ip 11.63.52.0/22 any
+  500 remark edge tks automation service
+  510 permit ip 10.20.137.0/24 any
+  520 permit ip 10.20.138.0/24 any
+  530 permit ip 10.20.213.0/24 any
+  540 permit ip 10.20.245.0/24 any
+  550 permit ip 10.21.21.0/24 any
+  560 permit ip 10.21.53.0/24 any
+  570 permit ip 10.22.138.0/24 any
+  580 permit ip 10.21.85.0/24 any
+  590 permit ip 10.21.117.0/24 any
+  600 permit ip 10.22.170.0/24 any
+  610 permit ip 10.21.149.0/24 any
+  620 permit ip 10.21.181.0/24 any
+  630 permit ip 10.22.154.0/24 any
+  640 permit ip 10.23.21.0/24 any
+  650 permit ip 10.23.53.0/24 any
+  660 permit ip 10.21.213.0/24 any
+  670 permit ip 10.21.245.0/24 any
+  680 permit ip 10.21.186.0/24 any
+  690 permit ip 10.23.85.0/24 any
+  700 permit ip 10.23.117.0/24 any
+  710 permit ip 10.22.202.0/24 any
+  720 permit ip 10.23.245.0/24 any
+  730 permit ip 10.22.85.0/24 any
+  740 permit ip 10.22.117.0/24 any
+  750 permit ip 10.23.149.0/24 any
+  760 permit ip 10.23.181.0/24 any
+  970 deny tcp any any eq telnet log
+  980 deny tcp any any eq 22 log
+  990 permit ip any any
+snmp-server source-interface traps mgmt0
+snmp-server host 10.228.90.84 traps version 2c public
+snmp-server host 10.228.90.84 use-vrf management
+snmp-server host 10.228.90.85 traps version 2c public
+snmp-server host 10.228.90.85 use-vrf management
+snmp-server host 10.11.116.100 traps version 2c public
+snmp-server host 10.11.116.100 use-vrf management
+snmp-server host 10.11.117.100 traps version 2c public
+snmp-server host 10.11.117.100 use-vrf management
+snmp-server enable traps bgp
+snmp-server enable traps callhome event-notify
+snmp-server enable traps callhome smtp-send-fail
+snmp-server enable traps cfs state-change-notif
+snmp-server enable traps lldp lldpRemTablesChange
+snmp-server enable traps cfs merge-failure
+snmp-server enable traps aaa server-state-change
+snmp-server enable traps feature-control FeatureOpStatusChange
+snmp-server enable traps sysmgr cseFailSwCoreNotifyExtended
+snmp-server enable traps config ccmCLIRunningConfigChanged
+snmp-server enable traps snmp authentication
+snmp-server enable traps link cisco-xcvr-mon-status-chg
+snmp-server enable traps vtp notifs
+snmp-server enable traps vtp vlancreate
+snmp-server enable traps vtp vlandelete
+snmp-server enable traps bridge newroot
+snmp-server enable traps bridge topologychange
+snmp-server enable traps stpx inconsistency
+snmp-server enable traps stpx root-inconsistency
+snmp-server enable traps stpx loop-inconsistency
+snmp-server enable traps system Clock-change-notification
+snmp-server enable traps feature-control ciscoFeatOpStatusChange
+snmp-server enable traps mmode cseNormalModeChangeNotify
+snmp-server enable traps mmode cseMaintModeChangeNotify
+snmp-server community public group network-operator
+route-map ctob permit 10
+logging logfile messages 6 size 81920
+logging source-interface mgmt0
+logging origin-id hostname
+vlan 2000
+  name bluevrf
+  vn-segment 50000
+vlan 3901
+  name VLAN_Z01
+  vn-segment 33901
+vlan 3910
+  name VLAN_VPC10
+  vn-segment 33910
+vlan 3911
+  name VLAN_VPC11
+  vn-segment 33911
+vrf context bluevrf
+  description bluevrf
+  vni 50000
+  rd auto
+  address-family ipv4 unicast
+    route-target both auto
+    route-target both auto evpn
+  address-family ipv6 unicast
+    route-target both auto
+    route-target both auto evpn
+exit
+vrf context vpc10
+  description VRF_VPC10
+  vni 33910
+  rd auto
+  address-family ipv4 unicast
+    route-target both auto
+    route-target both auto evpn
+  address-family ipv6 unicast
+    route-target both auto
+    route-target both auto evpn
+exit
+vrf context vpc11
+  description VRF_VPC11
+  vni 33911
+  rd auto
+  address-family ipv4 unicast
+    route-target both auto
+    route-target both auto evpn
+  address-family ipv6 unicast
+    route-target both auto
+    route-target both auto evpn
+exit
+vrf context z01
+  description VRF_Z01
+  vni 33901
+  rd auto
+  address-family ipv4 unicast
+    route-target both auto
+    route-target both auto evpn
+  address-family ipv6 unicast
+    route-target both auto
+    route-target both auto evpn
+exit
+interface Vlan2000
+  description bluevrf
+  vrf member bluevrf
+  ip forward
+  ipv6 address use-link-local-only
+  no ip redirects
+  no ipv6 redirects
+  mtu 9216
+  no shutdown
+exit
+interface Vlan3901
+  description INT_Z01
+  vrf member z01
+  ip forward
+  ipv6 address use-link-local-only
+  no ip redirects
+  no ipv6 redirects
+  mtu 9216
+  no shutdown
+exit
+interface Vlan3910
+  description INT_VPC10
+  vrf member vpc10
+  ip forward
+  ipv6 address use-link-local-only
+  no ip redirects
+  no ipv6 redirects
+  mtu 9216
+  no shutdown
+exit
+interface Vlan3911
+  description INT_VPC11
+  vrf member vpc11
+  ip forward
+  ipv6 address use-link-local-only
+  no ip redirects
+  no ipv6 redirects
+  mtu 9216
+  no shutdown
+exit
+logging server 10.11.116.100 6 use-vrf management
+logging server 10.11.117.100 6 use-vrf management
+logging server 10.228.90.42 6 use-vrf management
+logging server 10.228.90.43 6 use-vrf management
+vlan 1118
+  vn-segment 31118
+configure terminal
+vlan 1120
+  vn-segment 31120
+configure terminal
+vlan 1121
+  vn-segment 31121
+configure terminal
+vlan 20
+  vn-segment 30003
+configure terminal
+vlan 2023
+  vn-segment 32023
+configure terminal
+vlan 2253
+  vn-segment 32253
+configure terminal
+vlan 2300
+  vn-segment 30001
+configure terminal
+vlan 2301
+  vn-segment 30002
+configure terminal
+interface Vlan1118
+  vrf member z01
+  ip address 100.118.0.254/24
+  fabric forwarding mode anycast-gateway
+  no shutdown
+exit
+interface Vlan1120
+  vrf member vpc10
+  ip address 100.120.0.254/24
+  fabric forwarding mode anycast-gateway
+  no shutdown
+exit
+interface Vlan1121
+  vrf member vpc11
+  ip address 100.121.0.254/24
+  fabric forwarding mode anycast-gateway
+  no shutdown
+exit
+interface Vlan2023
+  vrf member z01
+  ip address 10.23.192.254/24
+  fabric forwarding mode anycast-gateway
+  no shutdown
+exit
+interface Vlan2253
+  vrf member z01
+  ip address 10.253.192.254/24
+  fabric forwarding mode anycast-gateway
+  no shutdown
+exit
+interface Vlan2300
+  vrf member bluevrf
+  ip address 192.168.11.1/24
+  fabric forwarding mode anycast-gateway
+  no shutdown
+exit
+interface Vlan2301
+  vrf member bluevrf
+  ip address 192.168.12.1/24
+  fabric forwarding mode anycast-gateway
+  no shutdown
+exit
+evpn
+  vni 30003 l2
+    rd auto
+    route-target import auto
+    route-target export auto
+  vni 30001 l2
+    rd auto
+    route-target import auto
+    route-target export auto
+  vni 30002 l2
+    rd auto
+    route-target import auto
+    route-target export auto
+  vni 31118 l2
+    rd auto
+    route-target import auto
+    route-target export auto
+  vni 31120 l2
+    rd auto
+    route-target import auto
+    route-target export auto
+  vni 31121 l2
+    rd auto
+    route-target import auto
+    route-target export auto
+  vni 32023 l2
+    rd auto
+    route-target import auto
+    route-target export auto
+  vni 32253 l2
+    rd auto
+    route-target import auto
+    route-target export auto
+configure terminal
 ===
-- Site1-S2
+- Site1-BGW2
+route-map bdl_core permit 10
+  match ip address prefix-list ms
+router bgp 4240650100
+  rd dual id 1
+  template peer EBGP-PEER-TEMPLATE-CORE
+    bfd
+    log-neighbor-changes
+    address-family ipv4 unicast
+      route-map bdl_core out
+      soft-reconfiguration inbound always
+      exit
+    address-family ipv6 unicast
+      soft-reconfiguration inbound always
+      exit
+    exit
+  vrf z01
+    router-id 100.86.255.21
+    neighbor Ethernet1/34
+      inherit peer EBGP-PEER-TEMPLATE-CORE
+      remote-as 4240600101
+      exit
+    neighbor Ethernet1/35
+      inherit peer EBGP-PEER-TEMPLATE-CORE
+      remote-as 4240600101
+      exit
+    neighbor Ethernet1/36
+      inherit peer EBGP-PEER-TEMPLATE-CORE
+      remote-as 4240600101
+configure terminal
 ===
