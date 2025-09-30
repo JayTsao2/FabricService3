@@ -184,8 +184,24 @@ def extract_devices_from_yaml(yaml_dir):
         print(f"Directory {yaml_dir} does not exist!")
         return device_list
 
-    # 遞歸搜尋所有子目錄中的YAML檔案
-    for yaml_file in yaml_path.rglob("*.yaml"):
+    # 遞歸搜尋 node 資料夾下所有子目錄中的 YAML 檔案 (.yaml, .yml)
+    # 注意： 不包含直接位於 node 資料夾根目錄下的 YAML 檔案，只搜尋 node/*/** 的檔案
+    for yaml_file in yaml_path.rglob("*"):
+        if not yaml_file.is_file():
+            continue
+        if yaml_file.suffix.lower() not in ('.yaml', '.yml'):
+            continue
+        # Skip files that are directly under the `node` folder (we only want nested folders)
+        try:
+            rel_parts = yaml_file.relative_to(yaml_path).parts
+        except Exception:
+            # If relative_to fails for any reason, skip this file
+            continue
+        if len(rel_parts) < 2:
+            # This means the file is directly under yaml_path (node/) and should be skipped
+            # Helpful debug print (kept minimal)
+            # print(f"Skipping top-level YAML file: {yaml_file}")
+            continue
         try:
             with open(yaml_file, 'r', encoding='utf-8') as file:
                 data = yaml.safe_load(file)
@@ -228,11 +244,16 @@ def check():
     # 設定參數
     username = "admin"
     password = "C1sco12345!"
-    yaml_directory = Path("network_configs/3_node")
+    # 預設使用相對於此檔案所在 repository 根目錄的 network_configs/node
+    # conn_check.py 位於: scripts/inventory/reachability_checks/
+    # 往上回溯到 repo 根（假設 repo 結構如目前工作區），然後接 network_configs/node
+    repo_root = Path(__file__).resolve().parents[3]
+    yaml_directory = repo_root / "network_configs" / "node"
 
-    # 如果路徑不存在，嘗試絕對路徑
-    if not yaml_directory.exists():
-        yaml_directory = Path("c:/Users/TNDO-ADMIN/Desktop/Repo_fabric/network_configs/3_node")
+    # 如果不存在，再嘗試原先的絕對備援路徑（維持向後相容）
+    # 暫時取消絕對路徑做法
+    # if not yaml_directory.exists():
+    #     yaml_directory = Path("c:/Users/TNDO-ADMIN/Desktop/FabricService/network_configs/node")
 
     print("Starting interface connectivity check...")
     print("=" * 60)
