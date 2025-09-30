@@ -1,4 +1,15 @@
 - Site2-BGW2
+interface ethernet1/34
+  no mtu 9216
+interface ethernet1/34
+  no switchport
+  vrf member z01
+  mtu 9100
+  no shutdown
+  ip address 10.255.255.5/31
+    bfd interval 300 min_rx 300 multiplier 3
+  ipv6 address fd00:101:c00:0:10:50:32:111/127
+  ipv6 nd suppress-ra
 route-map bdl_core permit 10
   match ip address prefix-list ms
 router bgp 4240650200
@@ -30,6 +41,17 @@ router bgp 4240650200
 configure terminal
 ===
 - Site2-BGW1
+interface ethernet1/34
+  no mtu 9216
+interface ethernet1/34
+  no switchport
+  mtu 9100
+  no shutdown
+  vrf member z01
+  ip address 10.255.255.1/31
+    bfd interval 300 min_rx 300 multiplier 3
+  ipv6 address fd00:101:c00:0:10:50:32:111/127
+  ipv6 nd suppress-ra
 route-map bdl_core permit 10
   match ip address prefix-list ms
 router bgp 4240650200
@@ -61,6 +83,13 @@ router bgp 4240650200
 configure terminal
 ===
 - Site1-BGW2
+interface ethernet1/34
+  no mtu 9216
+interface ethernet1/34
+  no switchport
+  no shutdown
+  vrf member z01
+  mtu 9100
 route-map bdl_core permit 10
   match ip address prefix-list ms
 router bgp 4240650100
@@ -92,6 +121,19 @@ router bgp 4240650100
 configure terminal
 ===
 - Site1-BGW1
+interface ethernet1/34
+  no mtu 9216
+interface ethernet1/34
+  no switchport
+  vrf member z01
+  mtu 9100
+  no shutdown
+  no ip redirects
+  ip forward
+  ipv6 link-local use-bia
+  ipv6 nd ra-interval 4 min 3
+  ipv6 nd ra-lifetime 10
+  no ipv6 redirects
 route-map bdl_core permit 10
   match ip address prefix-list ms
 router bgp 4240650100
@@ -122,26 +164,7 @@ router bgp 4240650100
       remote-as 4240600101
 configure terminal
 ===
-- Site1-L2
-===
 - Site1-DCI-1
-router ospf 100
-  log-adjacency-changes
-  timers throttle spf 50 50 5000
-  timers lsa-group-pacing 240
-  timers lsa-arrival 15
-  timers throttle lsa 0 50 5000
-line vty
-  session-limit 10
-  exec-timeout 60
-configure terminal
 ===
 - Site2-DCI-1
-router ospf 100
-  log-adjacency-changes
-  timers throttle spf 50 50 5000
-  timers lsa-group-pacing 240
-  timers lsa-arrival 15
-  timers throttle lsa 0 50 5000
-configure terminal
 ===

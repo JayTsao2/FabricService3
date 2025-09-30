@@ -285,7 +285,7 @@ class FabricBuilder:
             for role_name, switches in roles.items():
                 for switch in switches:
                     self.interface_manager.update_switch_interfaces(fabric_name, role_name, switch)
-                    self.interface_manager.deploy_switch_interfaces(fabric_name, role_name, switch)
+                    # self.interface_manager.deploy_switch_interfaces(fabric_name, role_name, switch)
 
 
         # Set switch freeform configs
