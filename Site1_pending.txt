@@ -3,9 +3,9 @@ interface ethernet1/34
   no mtu 9216
 interface ethernet1/34
   no switchport
-  vrf member z01
-  mtu 9100
   no shutdown
+  mtu 9100
+  vrf member z01
   no ip redirects
   ip forward
   ipv6 link-local use-bia
@@ -47,9 +47,9 @@ interface ethernet1/34
   no mtu 9216
 interface ethernet1/34
   no switchport
-  no shutdown
-  vrf member z01
   mtu 9100
+  vrf member z01
+  no shutdown
 route-map bdl_core permit 10
   match ip address prefix-list ms
 router bgp 4240650100
@@ -121,9 +121,9 @@ interface ethernet1/8
   no switchport mode trunk
 interface ethernet1/15
   no switchport
-  vrf member z01
   mtu 9100
   no shutdown
+  vrf member z01
   bfd interval 500 min_rx 500 multiplier 6
   no bfd echo
   no bfd ipv6 echo
@@ -374,25 +374,25 @@ interface Vlan3911
   no shutdown
 exit
 interface nve1
-  member vni 33910 associate-vrf
-  member vni 33901 associate-vrf
-  member vni 33911 associate-vrf
   member vni 50000 associate-vrf
-  member vni 30001
-    ingress-replication protocol bgp
-  member vni 31118
-    ingress-replication protocol bgp
+  member vni 33911 associate-vrf
+  member vni 33901 associate-vrf
+  member vni 33910 associate-vrf
   member vni 31121
     ingress-replication protocol bgp
-  member vni 30003
-    ingress-replication protocol bgp
-  member vni 32253
-    ingress-replication protocol bgp
-  member vni 32023
+  member vni 31120
     ingress-replication protocol bgp
   member vni 30002
     ingress-replication protocol bgp
-  member vni 31120
+  member vni 31118
+    ingress-replication protocol bgp
+  member vni 30001
+    ingress-replication protocol bgp
+  member vni 30003
+    ingress-replication protocol bgp
+  member vni 32023
+    ingress-replication protocol bgp
+  member vni 32253
     ingress-replication protocol bgp
 vlan 1118
   vn-segment 31118
@@ -536,9 +536,9 @@ interface ethernet1/8
   no switchport mode trunk
 interface ethernet1/15
   no switchport
-  no shutdown
   vrf member vpc10
   mtu 9100
+  no shutdown
   bfd interval 500 min_rx 500 multiplier 6
   no bfd echo
   no bfd ipv6 echo
@@ -790,24 +790,24 @@ interface Vlan3911
 exit
 interface nve1
   member vni 33901 associate-vrf
-  member vni 33910 associate-vrf
   member vni 50000 associate-vrf
   member vni 33911 associate-vrf
-  member vni 31121
+  member vni 33910 associate-vrf
+  member vni 30002
     ingress-replication protocol bgp
   member vni 30001
     ingress-replication protocol bgp
   member vni 31118
     ingress-replication protocol bgp
-  member vni 32023
+  member vni 31121
     ingress-replication protocol bgp
   member vni 31120
     ingress-replication protocol bgp
-  member vni 30002
+  member vni 32253
     ingress-replication protocol bgp
   member vni 30003
     ingress-replication protocol bgp
-  member vni 32253
+  member vni 32023
     ingress-replication protocol bgp
 vlan 1118
   vn-segment 31118

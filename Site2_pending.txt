@@ -3,11 +3,11 @@ interface ethernet1/34
   no mtu 9216
 interface ethernet1/34
   no switchport
+  vrf member z01
   mtu 9100
   no shutdown
-  vrf member z01
   ip address 10.255.255.1/31
-    bfd interval 300 min_rx 300 multiplier 3
+  bfd interval 300 min_rx 300 multiplier 3
   ipv6 address fd00:101:c00:0:10:50:32:111/127
   ipv6 nd suppress-ra
 route-map bdl_core permit 10
@@ -49,7 +49,7 @@ interface ethernet1/34
   mtu 9100
   no shutdown
   ip address 10.255.255.5/31
-    bfd interval 300 min_rx 300 multiplier 3
+  bfd interval 300 min_rx 300 multiplier 3
   ipv6 address fd00:101:c00:0:10:50:32:111/127
   ipv6 nd suppress-ra
 route-map bdl_core permit 10
